@@ -1,1 +1,3 @@
-# discovery-ios-sdk
+# Discovery
+
+A description of this package.
