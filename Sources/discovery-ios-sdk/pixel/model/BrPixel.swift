@@ -27,8 +27,25 @@ public class BrPixel {
             self.uuid = uuid
             self.visitorType = visitorType
             self.baseUrl = baseUrl
-            self.pixelUrlByRegion = PixelRegion.TEST.rawValue
+            self.pixelUrlByRegion = PixelRegion.NA.rawValue
         }
+    
+    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil) {
+        self.accountId = accountId
+        self.uuid = uuid
+        self.visitorType = visitorType
+        self.baseUrl = baseUrl
+        self.domainKey = domainKey
+        self.userId = userId
+        self.testData = testData
+        self.currency = currency
+        self.pixelUrlByRegion = pixelUrlByRegion
+        self.customerTier = customerTier
+        self.customerCountry = customerCountry
+        self.customerGeo = customerGeo
+        self.customerProfile = customerProfile
+        
+    }
 }
 
 public enum VisitorType : Int {

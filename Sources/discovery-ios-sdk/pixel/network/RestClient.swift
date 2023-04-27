@@ -19,18 +19,12 @@ class RestClient {
                    request.httpBody = requestBody
         }
         
-        print("validatePixel")
-        
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
                     do {
                         let model = try JSONDecoder().decode(PixelValidatorResponse.self, from: _data!)
-//                        completion(.success(model))
-                        print("validatePixel success")
                         self.printPixelValidatorResponse(response: model)
-                    
                     }
                     catch {
-                        //completion(.failure(error))
                         print("validatePixel failure")
                     }
         }
@@ -45,8 +39,8 @@ class RestClient {
         }
     
     func submitPixel(parameters: [String: String?]) {
-        
-        let url = URL(string: "https://p.brsrvr.com/pix.gif")
+        let baseUrl = PixelTracker.shared.brPixel?.pixelUrlByRegion
+        let url = URL(string: "https://\(baseUrl)/pix.gif")
         var components = URLComponents(string: url!.absoluteString)!
         components.queryItems = parameters.map { (key, value) in
                     URLQueryItem(name: key, value: value)
@@ -54,19 +48,14 @@ class RestClient {
         
         var request = URLRequest(url: ((components.url ?? url)!))
         request.httpMethod = "GET"
-       // request.setValue( "Bloomreach/1.0.0 " + System.getProperty("http.agent"), forHTTPHeaderField:  "User-Agent")
+        request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
        
        // URLSession.
-        
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
                     do {
-//                        let model = try JSONDecoder().decode(model.self, from: _data!)
-//                        completion(.success(model))
-                        print(response)
                         print("submitPixel success")
                     }
                     catch {
-                        //completion(.failure(error))
                         print("submitPixel failure")
                     }
         }
