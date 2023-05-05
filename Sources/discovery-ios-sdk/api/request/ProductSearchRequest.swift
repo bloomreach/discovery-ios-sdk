@@ -24,16 +24,16 @@ public class ProductSearchRequest: SearchRequest<ProductSearchRequest> {
     }
     
     /**
-    Method to set hardcoded default parameters required for product search API
-    */
-       private func setRequestType()  {
-           set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
-       }
-
-       /**
-        Method to set hardcoded default parameters required for product search API
-        */
-       private func setSearchType()  {
-           set(key: SEARCH_TYPE, value: SEARCH_TYPE_KEYWORD)
-       }
+     Method to set hardcoded default parameters required for product search API
+     */
+    private func setRequestType()  {
+        set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
+    }
+    
+    /**
+     Method to set hardcoded default parameters required for product search API
+     */
+    private func setSearchType()  {
+        set(key: SEARCH_TYPE, value: SEARCH_TYPE_KEYWORD)
+    }
 }

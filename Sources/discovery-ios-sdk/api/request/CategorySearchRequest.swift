@@ -27,14 +27,14 @@ public class CategorySearchRequest: SearchRequest<CategorySearchRequest> {
     /**
      Method to set hardcoded default parameters required for Category Search API
      */
-        private func setRequestType() {
-            set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
-        }
-
-        /**
-         Method to set hardcoded default parameters required for Category Search API
-         */
-        private func setSearchType() {
-            set(key: SEARCH_TYPE, value: SEARCH_TYPE_CATEGORY)
-        }
+    private func setRequestType() {
+        set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
+    }
+    
+    /**
+     Method to set hardcoded default parameters required for Category Search API
+     */
+    private func setSearchType() {
+        set(key: SEARCH_TYPE, value: SEARCH_TYPE_CATEGORY)
+    }
 }

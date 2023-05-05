@@ -26,22 +26,22 @@ public class BestSellerRequest: SearchRequest<BestSellerRequest> {
         setRequestType()
         setSearchType()
     }
-
+    
     /**
      Method to set hardcoded default parameters required for BestSeller API
      */
-        private func setRequestType() {
-             set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
-        }
-
-        /**
-         * Method to set hardcoded default parameters required for BestSeller API
-         * @return  A reference request object
-         */
+    private func setRequestType() {
+        set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
+    }
+    
+    /**
+     * Method to set hardcoded default parameters required for BestSeller API
+     * @return  A reference request object
+     */
     /**
      Method to set hardcoded default parameters required for BestSeller API
      */
-        private func setSearchType() {
-            set(key: SEARCH_TYPE, value: SEARCH_TYPE_BESTSELLER)
-        }
+    private func setSearchType() {
+        set(key: SEARCH_TYPE, value: SEARCH_TYPE_BESTSELLER)
+    }
 }

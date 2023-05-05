@@ -66,5 +66,5 @@ public enum WidgetApiType: String {
 }
 
 enum BrApiException: Error {
-    case EmptyValue(errorMessage: String)
+case EmptyValue(errorMessage: String)
 }

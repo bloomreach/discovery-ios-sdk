@@ -1,8 +1,8 @@
 //
-//  File.swift
+//  PixelQueue.swift
 //  
 //
-//  Created by Prashant Bhujbal
+//  PixelQueue class to hold pixels query parameter map to be sent to PIXEL API
 //
 
 import Foundation
@@ -17,32 +17,32 @@ class PixelQueue {
     private var elements: [[String:String?]] = []
     weak var delegate: QueueChanged?
     
-     func enqueue(value: [String:String?]) {
+    func enqueue(value: [String:String?]) {
         elements.append(value)
         delegate?.elementAdded()
-      }
-
-     func dequeue() -> [String:String?]? {
+    }
+    
+    func dequeue() -> [String:String?]? {
         guard !elements.isEmpty else {
-          return nil
+            return nil
         }
         return elements.removeFirst()
-//          delegate?.elementRemoved()
-      }
-
-     func head() -> [String:String?]? {
-          guard !elements.isEmpty else {
-              return nil
-          }
+        //          delegate?.elementRemoved()
+    }
+    
+    func head() -> [String:String?]? {
+        guard !elements.isEmpty else {
+            return nil
+        }
         return elements.first
-      }
-
-      var tail: [String:String?]? {
+    }
+    
+    var tail: [String:String?]? {
         return elements.last
-      }
+    }
 }
 
 protocol QueueChanged: AnyObject {
-       func elementAdded()
-       func elementRemoved()
-  }
+    func elementAdded()
+    func elementRemoved()
+}

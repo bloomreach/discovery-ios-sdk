@@ -1,8 +1,7 @@
 //
-//  File.swift
+//  CatalogItem.swift
 //  
-//
-//  Created by Prashant Bhujbal
+//  Model class for Catalog Item
 //
 
 import Foundation
