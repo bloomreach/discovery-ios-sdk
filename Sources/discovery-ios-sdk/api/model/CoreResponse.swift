@@ -115,22 +115,22 @@ public struct Modification {
 
 
 extension CoreResponse: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case response
-    case category_map
-    case did_you_mean
-    case facet_counts
-    case campaign
-    case stats
-    case keywordRedirect
-    case metadata
-    case autoCorrectQuery
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case response
+        case category_map
+        case did_you_mean
+        case facet_counts
+        case campaign
+        case stats
+        case keywordRedirect
+        case metadata
+        case autoCorrectQuery
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
         self.response = try container.decodeIfPresent(Response.self, forKey: .response)
@@ -142,10 +142,10 @@ extension CoreResponse: Decodable {
         self.keywordRedirect = try container.decodeIfPresent(KeywordRedirect.self, forKey: .keywordRedirect)
         self.metadata = try container.decodeIfPresent(Metadata.self, forKey: .metadata)
         self.autoCorrectQuery = try container.decodeIfPresent(String.self, forKey: .autoCorrectQuery)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -154,26 +154,26 @@ extension CoreResponse: Decodable {
 }
 
 extension Response: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case numFound
-    case start
-    case docs
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case numFound
+        case start
+        case docs
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.numFound = try container.decodeIfPresent(Int.self, forKey: .numFound)
         self.start = try container.decodeIfPresent(Int.self, forKey: .start)
         self.docs = try container.decodeIfPresent([Doc].self, forKey: .docs)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -182,25 +182,25 @@ extension Response: Decodable {
 }
 
 extension Doc: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case pid
-    case brand
-    case description
-    case price
-    case sale_price
-    case thumb_image
-    case title
-    case url
-    case variants
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case pid
+        case brand
+        case description
+        case price
+        case sale_price
+        case thumb_image
+        case title
+        case url
+        case variants
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.pid = try container.decodeIfPresent(String.self, forKey: .pid)
         self.brand = try container.decodeIfPresent(String.self, forKey: .brand)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
@@ -210,10 +210,10 @@ extension Doc: Decodable {
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
         self.variants = try container.decodeIfPresent([Variant].self, forKey: .variants)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -222,26 +222,26 @@ extension Doc: Decodable {
 }
 
 extension FacetCounts: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case facet_fields
-    case facet_queries
-    case facet_ranges
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case facet_fields
+        case facet_queries
+        case facet_ranges
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.facetFields = try container.decodeIfPresent([String: [FacetFields]].self, forKey: .facet_fields)
         self.facetQueries = try container.decodeIfPresent([String: [FacetFields]].self, forKey: .facet_queries)
         self.facetRanges = try container.decodeIfPresent([String: [String]].self, forKey: .facet_ranges)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -250,23 +250,23 @@ extension FacetCounts: Decodable {
 }
 
 extension FacetFields: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case name
-    case count
-    case cat_id
-    case cat_name
-    case crumb
-    case tree_path
-    case parent
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case name
+        case count
+        case cat_id
+        case cat_name
+        case crumb
+        case tree_path
+        case parent
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.count = try container.decodeIfPresent(Int.self, forKey: .count)
         self.catId = try container.decodeIfPresent(String.self, forKey: .cat_id)
@@ -274,10 +274,10 @@ extension FacetFields: Decodable {
         self.crumb = try container.decodeIfPresent(String.self, forKey: .crumb)
         self.treePath = try container.decodeIfPresent(String.self, forKey: .tree_path)
         self.parent = try container.decodeIfPresent(String.self, forKey: .parent)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -286,23 +286,23 @@ extension FacetFields: Decodable {
 }
 
 extension Campaign: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case id
-    case htmlText
-    case bannerType
-    case keyword
-    case name
-    case dateEnd
-    case dateStart
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case id
+        case htmlText
+        case bannerType
+        case keyword
+        case name
+        case dateEnd
+        case dateStart
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.id = try container.decodeIfPresent(String.self, forKey: .id)
         self.htmlText = try container.decodeIfPresent(String.self, forKey: .htmlText)
         self.bannerType = try container.decodeIfPresent(String.self, forKey: .bannerType)
@@ -310,10 +310,10 @@ extension Campaign: Decodable {
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.dateEnd = try container.decodeIfPresent(String.self, forKey: .dateEnd)
         self.dateStart = try container.decodeIfPresent(String.self, forKey: .dateStart)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -324,22 +324,22 @@ extension Campaign: Decodable {
 
 
 extension Stats: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case stats_fields
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case stats_fields
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.statsFields = try container.decodeIfPresent([String: StatsField].self, forKey: .stats_fields)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -348,24 +348,24 @@ extension Stats: Decodable {
 }
 
 extension StatsField: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case min
-    case max
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case min
+        case max
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.min = try container.decodeIfPresent(Double.self, forKey: .min)
         self.max = try container.decodeIfPresent(Double.self, forKey: .max)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -374,26 +374,26 @@ extension StatsField: Decodable {
 }
 
 extension KeywordRedirect: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case originalQuery
-    case redirectedQuery
-    case redirectedUrl
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case originalQuery
+        case redirectedQuery
+        case redirectedUrl
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.originalQuery = try container.decodeIfPresent(String.self, forKey: .originalQuery)
         self.redirectedQuery = try container.decodeIfPresent(String.self, forKey: .redirectedQuery)
         self.redirectedUrl = try container.decodeIfPresent(String.self, forKey: .redirectedUrl)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -402,22 +402,22 @@ extension KeywordRedirect: Decodable {
 }
 
 extension Metadata: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case query
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case query
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.query = try container.decodeIfPresent(Query.self, forKey: .query)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -426,24 +426,24 @@ extension Metadata: Decodable {
 }
 
 extension Query: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case modification
-    case didYouMean
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case modification
+        case didYouMean
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.modification = try container.decodeIfPresent(Modification.self, forKey: .modification)
         self.didYouMean = try container.decodeIfPresent([String].self, forKey: .didYouMean)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -452,24 +452,24 @@ extension Query: Decodable {
 }
 
 extension Modification: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case mode
-    case value
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case mode
+        case value
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.mode = try container.decodeIfPresent(String.self, forKey: .mode)
         self.value = try container.decodeIfPresent(String.self, forKey: .value)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded
@@ -478,16 +478,16 @@ extension Modification: Decodable {
 }
 
 struct DynamicCodingKeys: CodingKey {
-  var stringValue: String
-  init?(stringValue: String) {
-    self.stringValue = stringValue
-  }
-
-  // not used here, but a protocol requirement
-  var intValue: Int?
-  init?(intValue: Int) {
-    return nil
-  }
+    var stringValue: String
+    init?(stringValue: String) {
+        self.stringValue = stringValue
+    }
+    
+    // not used here, but a protocol requirement
+    var intValue: Int?
+    init?(intValue: Int) {
+        return nil
+    }
 }
 
 
@@ -500,24 +500,24 @@ public struct BrApiError {
 
 
 extension BrApiError: Decodable {
-  private enum KnownCodingKeys: CodingKey, CaseIterable {
-    case message
-    case status_code
-
-    static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
-      !Self.allCases.map(\.stringValue).contains(key.stringValue)
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case message
+        case status_code
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
     }
-  }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
-
+        
         self.message = try container.decodeIfPresent(String.self, forKey: .message)
         self.errorCode = try container.decodeIfPresent(Int.self, forKey: .status_code)
-
+        
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
-
+        
         for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
             let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
             self.extraOptions[key.stringValue] = decoded

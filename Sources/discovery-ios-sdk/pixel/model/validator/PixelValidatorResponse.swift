@@ -2,7 +2,6 @@
 //  PixelValidatorResponse.swift
 //  
 //
-//  Created by Prashant Bhujbal
 //
 
 import Foundation
@@ -23,7 +22,7 @@ struct Param: Codable {
     let name: String
     let value: String
     let description: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case name, value
         case description

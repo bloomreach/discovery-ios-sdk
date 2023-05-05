@@ -7,7 +7,7 @@
 import Foundation
 
 class ApiProcessor {
-
+    
     private let CORE_API_PATH = "/api/v1/core/"
     private let SUGGEST_API_PATH = "/api/v2/suggest"
     private let WIDGET_API_PATH = "/api/v2/widgets/"
@@ -16,13 +16,13 @@ class ApiProcessor {
     /**
      Method to format Core API parameters, execute the API and invoke the callback with appropriate result
      - parameters:
-        - params: Dictonary of request parameters to be sent with the request
-    */
+     - params: Dictonary of request parameters to be sent with the request
+     */
     func processCoreApi(parameters:  [String: Any?],  success: @escaping (_ response: CoreResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var queryMap = parameters
         let url = URL(string: getBaseUrlForCore())
         var components = URLComponents(string: url!.absoluteString)!
-
+        
         let params = prepareGlobalQuery(queryMap: &queryMap)
         components.queryItems = getQueryItemArray(params: params)
         restClientApi.doApiCall(components: components, success: success, failure: failure)
@@ -31,8 +31,8 @@ class ApiProcessor {
     /**
      Method to format Suggest API parameters, execute the API and invoke the callback with appropriate result
      - parameters:
-        - params: Dictonary of request parameters to be sent with the request
-    */
+     - params: Dictonary of request parameters to be sent with the request
+     */
     func processSuggestApi(parameters:  [String: Any?],  success: @escaping (_ response: SuggestResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var queryMap = parameters
         let url = URL(string: getBaseUrlForSuggest())
@@ -46,10 +46,10 @@ class ApiProcessor {
     /**
      Method to format Suggest API parameters, execute the API and invoke the callback with appropriate result
      - parameters:
-        - widgetId: The ID of the widget, which can be found in the Widget Configurator in the Dashboard.
-        - widgetType: Type of widget
-        - params: Dictonary of request parameters to be sent with the request
-    */
+     - widgetId: The ID of the widget, which can be found in the Widget Configurator in the Dashboard.
+     - widgetType: Type of widget
+     - params: Dictonary of request parameters to be sent with the request
+     */
     func processRecsAndPathwaysApi(widgetId: String, widgetType: String, parameters:  [String: Any?],  success: @escaping (_ response: RecsAndPathwaysResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var queryMap = parameters
         let url = URL(string: getBaseUrlForRp(widgetType: widgetType, widgetId: widgetId))
@@ -110,31 +110,31 @@ class ApiProcessor {
     /**
      Method to add global request parameters to Uri Builder
      - parameters:
-        - uriBuilder: The Uri.Builder where the global request parameters will be added in required format
+     - uriBuilder: The Uri.Builder where the global request parameters will be added in required format
      */
     private func prepareGlobalQuery(
-            queryMap: inout [String: Any?]
+        queryMap: inout [String: Any?]
     ) -> [String: Any?] {
-            queryMap["account_id"] = BrApi.shared.brApiRequest?.accountId
+        queryMap["account_id"] = BrApi.shared.brApiRequest?.accountId
         
-            queryMap["auth_key"] = BrApi.shared.brApiRequest?.authKey
+        queryMap["auth_key"] = BrApi.shared.brApiRequest?.authKey
         
-            queryMap["domain_key"] = BrApi.shared.brApiRequest?.domainKey
+        queryMap["domain_key"] = BrApi.shared.brApiRequest?.domainKey
         
-            queryMap["_br_uid_2"] = FormatterUtils.shared.formatCookieValue(
-                uuid: BrApi.shared.brApiRequest?.uuid ?? "",
-                hitcount: BrApi.shared.brApiRequest?.visitorType ?? VisitorType.NEW_USER)
-
-            queryMap["request_id"] = FormatterUtils.shared.generateRand()
-
-            queryMap["ref_url"] = ""
-
-            // customer user id
-            if (!(PixelTracker.shared.brPixel!.userId ?? "").isEmpty) {
-                queryMap["user_id"] = BrApi.shared.brApiRequest?.userId
-            }
+        queryMap["_br_uid_2"] = FormatterUtils.shared.formatCookieValue(
+            uuid: BrApi.shared.brApiRequest?.uuid ?? "",
+            hitcount: BrApi.shared.brApiRequest?.visitorType ?? VisitorType.NEW_USER)
         
-            return queryMap
+        queryMap["request_id"] = FormatterUtils.shared.generateRand()
+        
+        queryMap["ref_url"] = ""
+        
+        // customer user id
+        if (!(PixelTracker.shared.brPixel!.userId ?? "").isEmpty) {
+            queryMap["user_id"] = BrApi.shared.brApiRequest?.userId
         }
-
+        
+        return queryMap
+    }
+    
 }

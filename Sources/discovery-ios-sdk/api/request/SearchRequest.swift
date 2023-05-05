@@ -14,11 +14,11 @@ public class SearchRequest<T>: RequestMap<T> {
         rows(rows: 10)
         start(start: 0)
     }
-
+    
     /**
      Method to set rows Search APIs
      - parameters:
-        - rows: The number of matching items to return per results page in the API response. The maximum value is 200.
+     - rows: The number of matching items to return per results page in the API response. The maximum value is 200.
      - returns A reference to the current Request object
      */
     public func rows(rows: Int) -> T {
@@ -28,27 +28,27 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set start Search APIs
      - parameters:
-        - start: The number of the first item on a page of results. For example, the first item on the first page is 0, making the start value also 0.
+     - start: The number of the first item on a page of results. For example, the first item on the first page is 0, making the start value also 0.
      - returns A reference to the current Request object
      */
     public func start(start: Int) -> T {
         return set(key: "rows", value: String(start))
     }
-
+    
     /**
      Method to set search term for Search APIs
      - parameters:
-        - q: Query key for Searching
+     - q: Query key for Searching
      - returns A reference to the current Request object
      */
     public func searchTerm(q: String) -> T {
         return set(key: "q", value: q)
     }
-
+    
     /**
      Method to set Field List for Search APIs
      - parameters:
-        - value: The comma separated attributes that you want returned in your API response, such as product IDs and prices.
+     - value: The comma separated attributes that you want returned in your API response, such as product IDs and prices.
      - returns A reference to the current Request object
      */
     public func fl(value: String) throws -> T {
@@ -57,11 +57,11 @@ public class SearchRequest<T>: RequestMap<T> {
         }
         return set(key: "fl", value: value)
     }
-
+    
     /**
      Method to set Field List for Search APIs
      - parameters:
-        - values: The attributes array that you want returned in your API response, such as product IDs and prices.
+     - values: The attributes array that you want returned in your API response, such as product IDs and prices.
      - returns A reference to the current Request object
      */
     public func fl(values: [String]) throws -> T {
@@ -76,11 +76,11 @@ public class SearchRequest<T>: RequestMap<T> {
         
         return try fl(value: flStr)
     }
-
+    
     /**
      Method to set sort parameter. You can alter the sequence in which products are displayed by passing the sort parameter.
      - parameters:
-        - value: Formatted value for sort parameter. 'price+asc'
+     - value: Formatted value for sort parameter. 'price+asc'
      - returns A reference to the current Request object
      */
     public func sort(value: String?) -> T {
@@ -90,7 +90,7 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set sort parameter. You can alter the sequence in which products are displayed by passing the sort parameter.
      - parameters:
-        - values:  Array of sort string
+     - values:  Array of sort string
      - returns A reference to the current Request object
      */
     public func sort(values: [String]) -> T {
@@ -108,41 +108,41 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set facetPrefix for Search APIs. The facet.prefix parameter limits faceting to terms that start with the specified string prefix.
      - parameters:
-        - facetName: The name of the facet
-        - prefixValue: Value for facet prefix
+     - facetName: The name of the facet
+     - prefixValue: Value for facet prefix
      - returns A reference to the current Request object
      */
     public func facetPrefix(facetName: String, prefixValue: String)  -> T {
         let key = "f.\(facetName).facet.prefix"
         return set(key: key, value: prefixValue)
     }
-
+    
     /**
      Method to set facetPrefix for Widget APIs. The facet.prefix parameter limits faceting to terms that start with the specified string prefix.
      - parameters:
-        - facetName: The name of the facet
-        - prefixValue: Value for facet prefix
+     - facetName: The name of the facet
+     - prefixValue: Value for facet prefix
      - returns A reference to the current Request object
      */
     public func facetPrefixWidget(facetName: String, prefixValue: String) -> T {
         return set(key: "facet.prefix", value: "\(facetName):\(prefixValue)")
     }
-
+    
     /**
      Method to set fq
      - parameters:
-        - value: The formatted value to be passed to fq parameter
+     - value: The formatted value to be passed to fq parameter
      - returns A reference to the current Request object
      */
     public func fq(value: String) -> T {
         return add(key: "fq", value: value)
     }
-
+    
     /**
      Method to set fq with attribute and its single value. The fq parameter is an optional parameter that you can add to an API request to filter the results.
      - parameters:
-        - attribute: The attribute for fq
-        - value:  The value of the attribute
+     - attribute: The attribute for fq
+     - value:  The value of the attribute
      - returns A reference to the current Request object
      */
     public func fq(attribute: String, value: String) -> T {
@@ -153,8 +153,8 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set fq with attribute and its multiple value. The fq parameter is an optional parameter that you can add to an API request to filter the results.
      - parameters:
-        - attribute: The attribute for fq
-        - values: The array of multiple possible values for given attribute.
+     - attribute: The attribute for fq
+     - values: The array of multiple possible values for given attribute.
      - returns A reference to the current Request object
      */
     public func fq(attribute: String, values: [String]) -> T {
@@ -171,11 +171,11 @@ public class SearchRequest<T>: RequestMap<T> {
         }
         return fq(attribute: attribute, value: str)
     }
-
+    
     /**
      Method to set stats.field. The stats.field allows you to display the maximum and minimum values of any numeric field in your data set for a user query.
      - parameters:
-        - value: The formatted stats.field value
+     - value: The formatted stats.field value
      - returns A reference to the current Request object
      */
     public func statsField(value: String?) -> T {
@@ -185,7 +185,7 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set stats.field. The stats.field allows you to display the maximum and minimum values of any numeric field in your data set for a user query.
      - parameters:
-        - values: The array stats.field value
+     - values: The array stats.field value
      - returns A reference to the current Request object
      */
     public func statsField(values: [String]) -> T {
@@ -203,7 +203,7 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set  efq
      - parameters:
-        - value: The formatted efq value
+     - value: The formatted efq value
      - returns A reference to the current Request object
      */
     public func efq(value: String) -> T {
@@ -213,8 +213,8 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set  efq
      - parameters:
-        - attribute: The formatted efq attribute
-        - value: The formatted efq value for attribute
+     - attribute: The formatted efq attribute
+     - value: The formatted efq value for attribute
      - returns A reference to the current Request object
      */
     public func efq(attribute: String, value: String) -> T {
@@ -224,9 +224,9 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set  efq
      - parameters:
-        - attribute: The formatted efq attribute
-        - value: The formatted efq value for attribute
-        - isNot: NOT operator
+     - attribute: The formatted efq attribute
+     - value: The formatted efq value for attribute
+     - isNot: NOT operator
      - returns A reference to the current Request object
      */
     public func efq(attribute: String, value: String, isNot: Bool) -> T {
@@ -240,9 +240,9 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set efq with attribute and its multiple values
      - parameters:
-        - attribute: The attribute for efq
-        - value: The array of multiple possible values for given attribute.
-        - operator: 'AND' or 'OR' operator for values
+     - attribute: The attribute for efq
+     - value: The array of multiple possible values for given attribute.
+     - operator: 'AND' or 'OR' operator for values
      - returns A reference to the current Request object
      */
     public func efq(attribute: String, values: [String], _operator: Operator) -> T {
@@ -268,8 +268,8 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set efq with multiple attribute and  values
      - parameters:
-        - values:  The dict of multiple possible attributes and its values.
-        - operator: 'AND' or 'OR' operator for values
+     - values:  The dict of multiple possible attributes and its values.
+     - operator: 'AND' or 'OR' operator for values
      - returns A reference to the current Request object
      */
     public func efq(values: [String: String], _operator: Operator) -> T {
@@ -288,7 +288,7 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set facet.range parameter. Use the facet.range parameter to include ranged facets
      - parameters:
-        - value:  The dict of multiple possible attributes and its values.
+     - value:  The dict of multiple possible attributes and its values.
      - returns A reference to the current Request object
      */
     public func facetRange(value: String?) -> T {
@@ -298,7 +298,7 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set facet.range parameter. Use the facet.range parameter to include ranged facets
      - parameters:
-        - values: Array for the facet range
+     - values: Array for the facet range
      - returns A reference to the current Request object
      */
     public func facetRange(values: [String]) -> T {
@@ -312,11 +312,11 @@ public class SearchRequest<T>: RequestMap<T> {
         }
         return facetRange(value: frString)
     }
-
+    
     /**
      BOPIS-specific parameter to specify the end-customer's latitude-longitude.
      - parameters:
-        - value: value for lat long in format 'lat,long'
+     - value: value for lat long in format 'lat,long'
      - returns A reference to the current Request object
      */
     public func latLong(value: String?) -> T {
@@ -326,47 +326,47 @@ public class SearchRequest<T>: RequestMap<T> {
     /**
      Method to set View Id
      - parameters:
-        - value: A unique identifier for a specific view of your product catalog.
+     - value: A unique identifier for a specific view of your product catalog.
      - returns A reference to the current Request object
      */
     public func viewId(value: String?) -> T {
         return set(key: "view_id", value: value)
     }
-  
+    
     /**
      Method to set user id of the customer
      - parameters:
-        - value: The universal customer ID of the user.
+     - value: The universal customer ID of the user.
      - returns A reference to the current Request object
      */
     public func userId(value: String?) -> T {
         return set(key: "user_id", value: value)
     }
-
+    
     /**
      Method to set widget Id, The widget_id provided in the Dashboard for the Dynamic Widgets feature, which is used to provided curated results.
      - parameters:
-        - value: value for widget id
+     - value: value for widget id
      - returns A reference to the current Request object
      */
     public func widgetId(value: String?) -> T {
         return set(key: "widget_id", value: value)
     }
-
+    
     /**
      Method to set title
      - parameters:
-        - value: The title or name of the product.
+     - value: The title or name of the product.
      - returns A reference to the current Request object
      */
     public func title(value: String?) -> T {
         return set(key: "title", value: value)
     }
-
+    
     /**
      Method to set url
      - parameters:
-        - value: The title or name of the product.
+     - value: The title or name of the product.
      - returns A reference to the current Request object
      */
     public func url(value: String) -> T {

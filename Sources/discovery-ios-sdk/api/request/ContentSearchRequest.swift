@@ -26,30 +26,30 @@ public class ContentSearchRequest : SearchRequest<ContentSearchRequest> {
     /**
      * Method to set hardcoded default parameters required for content search API
      - returns A reference to the current Request object
-    */
-        private func setRequestType() -> ContentSearchRequest {
-            return set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
-        }
-
-        /**
-         * Method to set hardcoded default parameters required for content search API
-         - returns A reference to the current Request object
-         */
-        private func setSearchType() -> ContentSearchRequest {
-            return set(key: SEARCH_TYPE, value: SEARCH_TYPE_KEYWORD)
-        }
-
+     */
+    private func setRequestType() -> ContentSearchRequest {
+        return set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
+    }
+    
+    /**
+     * Method to set hardcoded default parameters required for content search API
+     - returns A reference to the current Request object
+     */
+    private func setSearchType() -> ContentSearchRequest {
+        return set(key: SEARCH_TYPE, value: SEARCH_TYPE_KEYWORD)
+    }
+    
     /**
      Method to set catalog name.
      Named identifier of the catalog. A catalog is a grouping of items into a broader category such as blogs, videos, etc. A catalog is a representation of a group of items and must have a unique name, that is also unique to a domain if you have multiple sites).
      - parameters:
-        - value: catalog name
+     - value: catalog name
      - returns A reference to the current Request object
      */
     public func catalogName(value: String) throws -> ContentSearchRequest {
-            if (value.isEmpty) {
-                throw BrApiException.EmptyValue(errorMessage: "Catalog Name should not be empty")
-            }
-            return set(key: "catalog_name", value: value)
+        if (value.isEmpty) {
+            throw BrApiException.EmptyValue(errorMessage: "Catalog Name should not be empty")
         }
+        return set(key: "catalog_name", value: value)
+    }
 }

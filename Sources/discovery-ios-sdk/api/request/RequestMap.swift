@@ -13,8 +13,8 @@ public class RequestMap<T> {
     /**
      Method to set query parameter as key and value. If the key key is already set, the value will get replaced
      - parameters:
-        - key: internal object which holds data for fields required to generate query parameter String
-        - value: The value that is used for the query parameter value. If the value is <pre>null</pre> the key will be removed
+     - key: internal object which holds data for fields required to generate query parameter String
+     - value: The value that is used for the query parameter value. If the value is <pre>null</pre> the key will be removed
      - returns A reference to the current Request object
      */
     public func set(key: String, value: String?) -> T {
@@ -30,8 +30,8 @@ public class RequestMap<T> {
     /**
      Method to add multiple query parameter for same key
      - parameters:
-        - key: internal object which holds data for fields required to generate query parameter String
-        - value: The value that is used for the query parameter value. If the value is <pre>null</pre> the key will be removed
+     - key: internal object which holds data for fields required to generate query parameter String
+     - value: The value that is used for the query parameter value. If the value is <pre>null</pre> the key will be removed
      - returns A reference to the current Request object
      */
     public func add(key: String, value: String?) -> T {

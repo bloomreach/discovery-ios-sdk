@@ -10,40 +10,40 @@ import Foundation
 class RestClientApi {
     
     /**
-        Method to HTTP call for all API
-    */
+     Method to HTTP call for all API
+     */
     func doApiCall(components: URLComponents, success: @escaping (_ response: CoreResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var request = URLRequest(url: ((components.url!)))
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
-       // URLSession.
+        // URLSession.
         
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
             if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
-                    case 200..<300:
-                        do {
-                            let model = try JSONDecoder().decode(CoreResponse.self, from: _data!)
-                            print("Core API success:  \(httpResponse.statusCode)" )
-                            success(model)
-                        }
-                        catch let error {
-                            print("Core API failure \(httpResponse.statusCode)")
-                            print("Error: \(error)")
-                            failure(NSError(domain: "", code: httpResponse.statusCode))
-                        }
-                    
-                    default:
+                case 200..<300:
+                    do {
+                        let model = try JSONDecoder().decode(CoreResponse.self, from: _data!)
+                        print("Core API success:  \(httpResponse.statusCode)" )
+                        success(model)
+                    }
+                    catch let error {
                         print("Core API failure \(httpResponse.statusCode)")
-                        do {
-                            let model = try JSONDecoder().decode(BrApiError.self, from: _data!)
-                            print("Core API failure statusCode:  \(String(describing: model.errorCode))" )
-                            print("Error: \(String(describing: model.message))")
-                        }
-                        catch let error {
-                            print("Error: \(error)")
-                        }
+                        print("Error: \(error)")
                         failure(NSError(domain: "", code: httpResponse.statusCode))
+                    }
+                    
+                default:
+                    print("Core API failure \(httpResponse.statusCode)")
+                    do {
+                        let model = try JSONDecoder().decode(BrApiError.self, from: _data!)
+                        print("Core API failure statusCode:  \(String(describing: model.errorCode))" )
+                        print("Error: \(String(describing: model.message))")
+                    }
+                    catch let error {
+                        print("Error: \(error)")
+                    }
+                    failure(NSError(domain: "", code: httpResponse.statusCode))
                 }
             }
         }
@@ -54,8 +54,8 @@ class RestClientApi {
         var request = URLRequest(url: ((components.url!)))
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
-       
-       // URLSession.
+        
+        // URLSession.
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
             if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
@@ -97,7 +97,7 @@ class RestClientApi {
         if(BrApi.shared.brApiRequest?.authKey != nil) {
             request.setValue(BrApi.shared.brApiRequest?.authKey, forHTTPHeaderField:  "auth_key")
         }
-       // URLSession.
+        // URLSession.
         
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
             if let httpResponse = response as? HTTPURLResponse {
@@ -123,7 +123,7 @@ class RestClientApi {
                         print("Error: \(error)")
                     }
                     failure(NSError(domain: "", code: httpResponse.statusCode))
-                
+                    
                 }
             }
         }

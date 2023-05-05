@@ -1,8 +1,7 @@
 //
-//  File.swift
+//  PixelBasketItem.swift
 //  
-//
-//  Created by Prashant Bhujbal
+//  Class containing product details for the purchase.
 //
 
 import Foundation
@@ -10,10 +9,10 @@ import Foundation
 public class PixelBasketItem {
     
     let prodId: String
-       let name: String
-       var sku: String? = nil
-       let quantity: String
-       let price: String
+    let name: String
+    var sku: String? = nil
+    let quantity: String
+    let price: String
     
     public init(prodId: String, name: String, sku: String?, quantity: String, price: String) {
         self.prodId = prodId

@@ -1,8 +1,8 @@
 //
-//  File.swift
+//  PixelValidator.swift
 //  
 //
-//  Created by Prashant Bhujbal
+//  PixelValidator class to format Pixel Validator request and perform the API call and format the response
 //
 
 import Foundation
@@ -18,7 +18,7 @@ class PixelValidator {
         let url = URL(string: "https://p.brsrvr.com/pix.gif")
         var components = URLComponents(string: url!.absoluteString)!
         components.queryItems = queryMap.map { (key, value) in
-                    URLQueryItem(name: key, value: value)
+            URLQueryItem(name: key, value: value)
         }
         
         let postBody: [String: Any] = [

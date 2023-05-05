@@ -1,8 +1,7 @@
 //
-//  File.swift
+//  PixelValidatorBody.swift
 //  
 //
-//  Created by Prashant Bhujbal
 //
 
 import Foundation
