@@ -32,7 +32,7 @@ public class SearchRequest<T>: RequestMap<T> {
      - returns A reference to the current Request object
      */
     public func start(start: Int) -> T {
-        return set(key: "rows", value: String(start))
+        return set(key: "start", value: String(start))
     }
     
     /**
