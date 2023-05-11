@@ -40,7 +40,8 @@ class RestClient {
     
     func submitPixel(parameters: [String: String?]) {
         let baseUrl = PixelTracker.shared.brPixel?.pixelUrlByRegion
-        let url = URL(string: "https://\(baseUrl)/pix.gif")
+        let url = URL(string: "https://\(baseUrl!)/pix.gif")
+        
         var components = URLComponents(string: url!.absoluteString)!
         components.queryItems = parameters.map { (key, value) in
             URLQueryItem(name: key, value: value)
