@@ -43,8 +43,16 @@ public struct Doc {
 // MARK: - FacetCounts
 public struct FacetCounts {
     public let facetFields: [String: [FacetFields]]?
-    public let facetQueries: [String: [FacetFields]]?
-    public let facetRanges: [String: [String]]?
+    public let facetQueries: [String: Int]?
+    public let facetRanges: [String: [FacetRange]]?
+    public var extraOptions: [String: AnyDecodable?]
+}
+
+// MARK: - FacetRange
+ public struct FacetRange {
+    public let start: AnyDecodable?
+    public let end: AnyDecodable?
+    public let count: Int?
     public var extraOptions: [String: AnyDecodable?]
 }
 
@@ -236,8 +244,36 @@ extension FacetCounts: Decodable {
         let container = try decoder.container(keyedBy: KnownCodingKeys.self)
         
         self.facetFields = try container.decodeIfPresent([String: [FacetFields]].self, forKey: .facet_fields)
-        self.facetQueries = try container.decodeIfPresent([String: [FacetFields]].self, forKey: .facet_queries)
-        self.facetRanges = try container.decodeIfPresent([String: [String]].self, forKey: .facet_ranges)
+        self.facetQueries = try container.decodeIfPresent([String: Int].self, forKey: .facet_queries)
+        self.facetRanges = try container.decodeIfPresent([String: [FacetRange]].self, forKey: .facet_ranges)
+        
+        self.extraOptions = [:]
+        let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
+        
+        for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
+            let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
+            self.extraOptions[key.stringValue] = decoded
+        }
+    }
+}
+
+extension FacetRange: Decodable {
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case start
+        case end
+        case count
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: KnownCodingKeys.self)
+        
+        self.start = try container.decodeIfPresent(AnyDecodable.self, forKey: .start)
+        self.end = try container.decodeIfPresent(AnyDecodable.self, forKey: .end)
+        self.count = try container.decodeIfPresent(Int.self, forKey: .count)
         
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
