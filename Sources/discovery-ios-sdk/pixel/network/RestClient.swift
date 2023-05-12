@@ -53,11 +53,14 @@ class RestClient {
         
         // URLSession.
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
-            do {
-                print("submitPixel success")
-            }
-            catch {
-                print("submitPixel failure")
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200..<300:
+                    print("submitPixel success \(httpResponse.statusCode)")
+                default:
+                    print("submitPixel failure \(httpResponse.statusCode)")
+                }
             }
         }
         task.resume()
