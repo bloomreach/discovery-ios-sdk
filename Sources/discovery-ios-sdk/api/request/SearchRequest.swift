@@ -146,7 +146,7 @@ public class SearchRequest<T>: RequestMap<T> {
      - returns A reference to the current Request object
      */
     public func fq(attribute: String, value: String) -> T {
-        let fqValue = "$attribute:\"\(value)\""
+        let fqValue = "\(attribute):\"\(value)\""
         return fq(value: fqValue)
     }
     
