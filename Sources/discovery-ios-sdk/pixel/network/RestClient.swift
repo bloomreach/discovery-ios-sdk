@@ -20,12 +20,25 @@ class RestClient {
         }
         
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
-            do {
-                let model = try JSONDecoder().decode(PixelValidatorResponse.self, from: _data!)
-                self.printPixelValidatorResponse(response: model)
-            }
-            catch {
-                print("validatePixel failure")
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200..<300:
+                    if let _data = _data {
+                        do {
+                            let model = try JSONDecoder().decode(PixelValidatorResponse.self, from: _data)
+                            self.printPixelValidatorResponse(response: model)
+                        }
+                        catch let error {
+                            print("validatePixel failure \(httpResponse.statusCode)")
+                            print("Error: \(error)")
+                        }
+                    } else {
+                        print("validatePixel failure \(httpResponse.statusCode)")
+                        print("Error: No Data")
+                    }
+                default:
+                    print("validatePixel failure \(httpResponse.statusCode)")
+                }
             }
         }
         task.resume()
@@ -64,8 +77,6 @@ class RestClient {
             }
         }
         task.resume()
-        
-        
     }
     
     
