@@ -101,9 +101,8 @@ public class PixelTracker {
                 ref: ref,
                 title: title
             )
-            
             pixelObject.itemId = itemId
-            pixelObject.itemName = itemId
+            pixelObject.itemName = itemName
             
             // send pixel for further processing
             pixelProcessor.processPixel(pixelObject: pixelObject)

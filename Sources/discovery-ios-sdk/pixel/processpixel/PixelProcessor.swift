@@ -50,11 +50,9 @@ class PixelProcessor: QueueChanged  {
         }
         
         // Validate Pixel only when in DEBUG mode
-        //if (BuildConfig.DEBUG) {
 #if DEBUG
         pixelValidator.validatePixel(queryMap: queryMap)
 #endif
-        // }
         
         // add the processed Map to Queue for further process
         PixelQueue.shared.enqueue(value: queryMap)
@@ -114,6 +112,11 @@ class PixelProcessor: QueueChanged  {
         // customer profile  present
         if (!(PixelTracker.shared.brPixel!.customerProfile ?? "").isEmpty) {
             queryMap["customer_profile"] = PixelTracker.shared.brPixel!.customerProfile
+        }
+        
+        // viewId  present
+        if (!(PixelTracker.shared.brPixel!.viewId ?? "").isEmpty) {
+            queryMap["view_id"] = PixelTracker.shared.brPixel!.viewId
         }
         
         return queryMap
@@ -235,10 +238,15 @@ class PixelProcessor: QueueChanged  {
             queryMap["customer_profile"] = PixelTracker.shared.brPixel!.customerProfile
         }
         
+        // viewId  present
+        if (!(PixelTracker.shared.brPixel!.viewId ?? "").isEmpty) {
+            queryMap["view_id"] = PixelTracker.shared.brPixel!.viewId
+        }
+        
         // Validate Pixel only when in DEBUG mode
-        //if (BuildConfig.DEBUG) {
+#if DEBUG
         pixelValidator.validatePixel(queryMap: queryMap)
-        // }
+#endif
         
         // add the processed Map to Queue for further process
         PixelQueue.shared.enqueue(value: queryMap)
