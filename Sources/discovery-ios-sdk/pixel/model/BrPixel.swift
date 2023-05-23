@@ -11,16 +11,18 @@ public class BrPixel {
     let uuid: String
     let visitorType: VisitorType
     let baseUrl: String
-    var domainKey: String? = nil
-    var userId: String? = nil
-    var testData: Bool = false
-    var currency: String? = nil
-    var pixelUrlByRegion: String? = nil
+    public var domainKey: String? = nil
+    public var userId: String? = nil
+    public var testData: Bool = false
+    public var currency: String? = nil
+    public var pixelUrlByRegion: String? = nil
     //segments
-    var customerTier: String? = nil
-    var customerCountry: String? = nil
-    var customerGeo: String? = nil
-    var customerProfile: String? = nil
+    public var customerTier: String? = nil
+    public var customerCountry: String? = nil
+    public var customerGeo: String? = nil
+    public var customerProfile: String? = nil
+    
+    public var viewId: String? = nil
     
     public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String) {
         self.accountId = accountId
@@ -30,7 +32,7 @@ public class BrPixel {
         self.pixelUrlByRegion = PixelRegion.NA.rawValue
     }
     
-    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil) {
+    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil, viewId: String? = nil) {
         self.accountId = accountId
         self.uuid = uuid
         self.visitorType = visitorType
@@ -44,6 +46,7 @@ public class BrPixel {
         self.customerCountry = customerCountry
         self.customerGeo = customerGeo
         self.customerProfile = customerProfile
+        self.viewId = viewId
         
     }
 }
