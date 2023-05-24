@@ -126,15 +126,16 @@ public class WidgetRequest : RequestMap<WidgetRequest> {
      */
     public func fields(values: [String]?) -> WidgetRequest {
         var fieldString: String? = nil
-        if (values == nil) {
+        guard let values = values else {
             fieldString = nil
+            return fields(value: fieldString)
         }
-        else if (values!.isEmpty) {
+        if (values.isEmpty) {
             fieldString = nil
-        } else if (values!.count == 1) {
-            fieldString = values![0]
-        } else if (values!.count > 1) {
-            fieldString = values?.joined(separator: ",")
+        } else if (values.count == 1) {
+            fieldString = values[0]
+        } else if (values.count > 1) {
+            fieldString = values.joined(separator: ",")
         }
         return fields(value: fieldString)
     }
@@ -204,7 +205,7 @@ public class WidgetRequest : RequestMap<WidgetRequest> {
      - value: Boolean value to enable or disable facet filtering
      - returns A reference to the current Request object
      */
-    public func facet(value: Bool) -> WidgetRequest {
+   @discardableResult public func facet(value: Bool) -> WidgetRequest {
         return set(key: "facet", value: String(value))
     }
     

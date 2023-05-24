@@ -21,11 +21,13 @@ class ApiProcessor {
     func processCoreApi(parameters:  [String: Any?],  success: @escaping (_ response: CoreResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var queryMap = parameters
         let url = URL(string: getBaseUrlForCore())
-        var components = URLComponents(string: url!.absoluteString)!
-        
-        let params = prepareGlobalQuery(queryMap: &queryMap)
-        components.queryItems = getQueryItemArray(params: params)
-        restClientApi.doApiCall(components: components, success: success, failure: failure)
+        if let urlString = url, var components = URLComponents(string: urlString.absoluteString) {
+            let params = prepareGlobalQuery(queryMap: &queryMap)
+            components.queryItems = getQueryItemArray(params: params)
+            restClientApi.doApiCall(components: components, success: success, failure: failure)
+        } else {
+            failure(NSError(domain: "", code: 0))
+        }
     }
     
     /**
@@ -36,11 +38,13 @@ class ApiProcessor {
     func processSuggestApi(parameters:  [String: Any?],  success: @escaping (_ response: SuggestResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var queryMap = parameters
         let url = URL(string: getBaseUrlForSuggest())
-        var components = URLComponents(string: url!.absoluteString)!
-        let params = prepareGlobalQuery(queryMap: &queryMap)
-        
-        components.queryItems = getQueryItemArray(params: params)
-        restClientApi.doApiCall(components: components, success: success, failure: failure)
+        if let urlString = url, var components = URLComponents(string: urlString.absoluteString) {
+            let params = prepareGlobalQuery(queryMap: &queryMap)
+            components.queryItems = getQueryItemArray(params: params)
+            restClientApi.doApiCall(components: components, success: success, failure: failure)
+        } else {
+            failure(NSError(domain: "", code: 0))
+        }
     }
     
     /**
@@ -53,11 +57,13 @@ class ApiProcessor {
     func processRecsAndPathwaysApi(widgetId: String, widgetType: String, parameters:  [String: Any?],  success: @escaping (_ response: RecsAndPathwaysResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var queryMap = parameters
         let url = URL(string: getBaseUrlForRp(widgetType: widgetType, widgetId: widgetId))
-        var components = URLComponents(string: url!.absoluteString)!
-        let params = prepareGlobalQuery(queryMap: &queryMap)
-        
-        components.queryItems = getQueryItemArray(params: params)
-        restClientApi.doApiCall(components: components, success: success, failure: failure)
+        if let urlString = url, var components = URLComponents(string: urlString.absoluteString) {
+            let params = prepareGlobalQuery(queryMap: &queryMap)
+            components.queryItems = getQueryItemArray(params: params)
+            restClientApi.doApiCall(components: components, success: success, failure: failure)
+        } else {
+            failure(NSError(domain: "", code: 0))
+        }
     }
     
     private func getBaseUrlForCore() -> String {
@@ -95,7 +101,7 @@ class ApiProcessor {
     
     private func getQueryItemArray(params:  [String: Any?]) -> [URLQueryItem] {
         var qeryItemArr: [URLQueryItem] = []
-        params.map { (key, value) in
+        _ = params.map { (key, value) in
             if value is [String] {
                 for listValue in (value as! [String]) {
                     qeryItemArr.append(URLQueryItem(name: key, value: listValue))

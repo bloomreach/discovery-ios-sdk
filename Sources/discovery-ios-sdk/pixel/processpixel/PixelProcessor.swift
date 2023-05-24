@@ -58,7 +58,7 @@ class PixelProcessor: QueueChanged  {
         PixelQueue.shared.enqueue(value: queryMap)
     }
     
-    private func prepareGlobalQuery(
+    @discardableResult private func prepareGlobalQuery(
         pixelObject: PixelObject,
         queryMap: inout [String: String?]
     ) -> [String: String?] {
@@ -122,7 +122,7 @@ class PixelProcessor: QueueChanged  {
         return queryMap
     }
     
-    private func processPageViewPixel(
+    @discardableResult private func processPageViewPixel(
         pixelObject: PixelObject,
         queryMap: inout [String: String?]
     ) -> [String: String?] {
@@ -159,7 +159,7 @@ class PixelProcessor: QueueChanged  {
         }
     }
     
-    private func processEventPixel(
+    @discardableResult  private func processEventPixel(
         pixelObject: PixelObject,
         queryMap: inout [String: String?]
     ) -> [String: String?] {

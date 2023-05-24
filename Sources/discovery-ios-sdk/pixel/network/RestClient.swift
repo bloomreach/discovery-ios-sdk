@@ -10,8 +10,10 @@ import Foundation
 class RestClient {
     
     func validatePixel (postBody: [String: Any]) {
-        let url = URL(string: "https://tools.bloomreach.com/pixel-validator/validatePixel")
-        var request = URLRequest(url: url!)
+        guard let url = URL(string: "https://tools.bloomreach.com/pixel-validator/validatePixel") else {
+            return
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -52,15 +54,16 @@ class RestClient {
     }
     
     func submitPixel(parameters: [String: String?]) {
-        let baseUrl = PixelTracker.shared.brPixel?.pixelUrlByRegion
-        let url = URL(string: "https://\(baseUrl!)/pix.gif")
-        
-        var components = URLComponents(string: url!.absoluteString)!
+        guard let baseUrl = PixelTracker.shared.brPixel?.pixelUrlByRegion,
+              let url = URL(string: "https://\(baseUrl)/pix.gif"),
+              var components = URLComponents(string: url.absoluteString),
+              let urlRequest = components.url else {
+            return
+        }
         components.queryItems = parameters.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }
-        
-        var request = URLRequest(url: ((components.url ?? url)!))
+        var request = URLRequest(url: urlRequest)
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
         
@@ -81,51 +84,52 @@ class RestClient {
     
     
     private func printPixelValidatorResponse(response: PixelValidatorResponse?){
-        if (response == nil) {
+        guard let response = response else {
             return
         }
-        
-        if (response!.errors != nil && !response!.errors.isEmpty) {
+        if let error = response.errors, !error.isEmpty {
             print(
                 "Pixel Validator",
-                "\n==========PIXEL VALIDATOR ERROR========= \n\n\(formResponseString(response: response!)) \n\n"
+                "\n==========PIXEL VALIDATOR ERROR========= \n\n\(formResponseString(response: response)) \n\n"
             )
-        } else if (response!.warns != nil && !response!.warns.isEmpty) {
+        }
+        else if let warn = response.warns, !warn.isEmpty {
             print(
                 "Pixel Validator",
-                "\n==========PIXEL VALIDATOR WARNING========= \n\n\(formResponseString(response: response!)) \n\n"
+                "\n==========PIXEL VALIDATOR WARNING========= \n\n\(formResponseString(response: response)) \n\n"
             )
-        } else {
+        }
+        else {
             print(
                 "Pixel Validator",
-                "\n==========PIXEL VALIDATOR SUCCESS========= \n\n\(formResponseString(response: response!)) \n\n"
+                "\n==========PIXEL VALIDATOR SUCCESS========= \n\n\(formResponseString(response: response)) \n\n"
             )
         }
     }
     
     private func formResponseString(response: PixelValidatorResponse) -> String {
-        var printString = "Pixel Name: \(response.displayName)\n\n"
-        
-        if (response.errors != nil && !response.errors.isEmpty) {
+        var printString = "Pixel Name: \(response.displayName ?? "")\n\n"
+        if let errors = response.errors, !errors.isEmpty {
             printString.append("Error in Parameters ==>")
-            for error in response.errors {
-                printString.append("\(error.name): \(error.value)\n")
-                printString.append("Description: \(error.description)\n\n")
+            for error in errors {
+                printString.append("\(error.name ?? ""): \(error.value ?? "")\n")
+                printString.append("Description: \(error.description ?? "")\n\n")
+
             }
         }
         
-        if (response.warns != nil && !response.warns.isEmpty) {
+        if let warns = response.warns, !warns.isEmpty {
             printString.append("Warning in Parameters ==>\n")
-            for warn in response.warns {
-                printString.append("\(warn.name): \(warn.value)\n")
-                printString.append("Description: \(warn.description)\n\n")
+            for warn in warns {
+                printString.append("\(warn.name ?? ""): \(warn.value ?? "")\n")
+                printString.append("Description: \(warn.description ?? "")\n\n")
             }
         }
         
-        if (response.success != nil && !response.success.isEmpty) {
+        if let successes = response.success, !successes.isEmpty {
             printString.append("Success Parameters ==>\n")
-            for success in response.success {
-                printString.append("\(success.name): \(success.value)\n")
+            for success in successes {
+                printString.append("\(success.name ?? ""): \(success.value ?? "")\n")
             }
         }
         return printString
