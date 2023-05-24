@@ -32,7 +32,7 @@ public class AutosuggestRequest: RequestMap<AutosuggestRequest> {
      - value: catalogs views formatted in required format
      - returns A reference to the current Request object
      */
-    public  func catalogViews(value: String) -> AutosuggestRequest {
+    public func catalogViews(value: String) -> AutosuggestRequest {
         return set(key: "catalog_views", value: value)
     }
     

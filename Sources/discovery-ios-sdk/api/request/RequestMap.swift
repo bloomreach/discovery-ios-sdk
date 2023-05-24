@@ -17,9 +17,8 @@ public class RequestMap<T> {
      - value: The value that is used for the query parameter value. If the value is <pre>null</pre> the key will be removed
      - returns A reference to the current Request object
      */
-    public func set(key: String, value: String?) -> T {
-        
-        if(value != nil && !value!.isEmpty) {
+    @discardableResult public func set(key: String, value: String?) -> T {
+        if let value = value, !value.isEmpty {
             requestMap[key] = value
         } else {
             requestMap.removeValue(forKey: key)
@@ -35,24 +34,20 @@ public class RequestMap<T> {
      - returns A reference to the current Request object
      */
     public func add(key: String, value: String?) -> T {
-        if(value != nil && !value!.isEmpty) {
-            
+        if let value = value, !value.isEmpty {
             if let val = requestMap[key] {
-                
                 if(val is [String]) {
                     //(val as! [String]).append(value) //TODO
                     requestMap[key] = val
                 } else if (val is String) {
                     var list = [String]()
                     list.append(val as! String)
-                    list.append(value!)
+                    list.append(value)
                     requestMap[key] = list
                 }
-                
             } else {
                 requestMap[key] = value
             }
-            
         } else {
             requestMap.removeValue(forKey: key)
         }
@@ -67,5 +62,4 @@ public class RequestMap<T> {
     public func getMap() -> [String: Any?] {
         return requestMap
     }
-    
 }

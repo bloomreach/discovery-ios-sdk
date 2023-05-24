@@ -21,7 +21,7 @@ public class SearchRequest<T>: RequestMap<T> {
      - rows: The number of matching items to return per results page in the API response. The maximum value is 200.
      - returns A reference to the current Request object
      */
-    public func rows(rows: Int) -> T {
+    @discardableResult public func rows(rows: Int) -> T {
         return set(key: "rows", value: String(rows))
     }
     
@@ -31,7 +31,7 @@ public class SearchRequest<T>: RequestMap<T> {
      - start: The number of the first item on a page of results. For example, the first item on the first page is 0, making the start value also 0.
      - returns A reference to the current Request object
      */
-    public func start(start: Int) -> T {
+    @discardableResult public func start(start: Int) -> T {
         return set(key: "start", value: String(start))
     }
     

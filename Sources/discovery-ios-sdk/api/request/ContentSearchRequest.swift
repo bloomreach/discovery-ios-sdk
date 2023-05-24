@@ -27,7 +27,7 @@ public class ContentSearchRequest : SearchRequest<ContentSearchRequest> {
      * Method to set hardcoded default parameters required for content search API
      - returns A reference to the current Request object
      */
-    private func setRequestType() -> ContentSearchRequest {
+   @discardableResult private func setRequestType() -> ContentSearchRequest {
         return set(key: REQUEST_TYPE, value: REQUEST_TYPE_SEARCH)
     }
     
@@ -35,7 +35,7 @@ public class ContentSearchRequest : SearchRequest<ContentSearchRequest> {
      * Method to set hardcoded default parameters required for content search API
      - returns A reference to the current Request object
      */
-    private func setSearchType() -> ContentSearchRequest {
+    @discardableResult private func setSearchType() -> ContentSearchRequest {
         return set(key: SEARCH_TYPE, value: SEARCH_TYPE_KEYWORD)
     }
     

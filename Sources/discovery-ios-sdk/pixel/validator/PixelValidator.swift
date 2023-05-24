@@ -14,9 +14,11 @@ class PixelValidator {
     private let path = "pix.gif"
     
     func validatePixel(queryMap: [String: String?]) {
-        
-        let url = URL(string: "https://p.brsrvr.com/pix.gif")
-        var components = URLComponents(string: url!.absoluteString)!
+        guard let baseUrl = PixelTracker.shared.brPixel?.pixelUrlByRegion,
+              let urlString = URL(string: "https://\(baseUrl)/pix.gif"),
+              var components = URLComponents(string: urlString.absoluteString) else {
+            return
+        }
         components.queryItems = queryMap.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }

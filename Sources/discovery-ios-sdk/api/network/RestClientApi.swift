@@ -13,7 +13,10 @@ class RestClientApi {
      Method to HTTP call for all API
      */
     func doApiCall(components: URLComponents, success: @escaping (_ response: CoreResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
-        var request = URLRequest(url: ((components.url!)))
+        guard let url = components.url else {
+            return failure(NSError(domain: "", code: 0))
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
         // URLSession.
@@ -44,8 +47,8 @@ class RestClientApi {
                     if let _data = _data {
                         do {
                             let model = try JSONDecoder().decode(BrApiError.self, from: _data)
-                            print("Core API failure statusCode:  \(String(describing: model.errorCode))" )
-                            print("Error: \(String(describing: model.message))")
+                            print("Core API failure statusCode:  \(model.errorCode ?? 0)" )
+                            print("Error: \(model.message ?? "")")
                         }
                         catch let error {
                             print("Error: \(error)")
@@ -62,7 +65,10 @@ class RestClientApi {
     }
     
     func doApiCall(components: URLComponents, success: @escaping (_ response: SuggestResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
-        var request = URLRequest(url: ((components.url!)))
+        guard let url = components.url else {
+            return failure(NSError(domain: "", code: 0))
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
         
@@ -92,8 +98,8 @@ class RestClientApi {
                     if let _data = _data {
                         do {
                             let model = try JSONDecoder().decode(BrApiError.self, from: _data)
-                            print("Core API failure statusCode:  \(String(describing: model.errorCode))" )
-                            print("Error: \(String(describing: model.message))")
+                            print("Core API failure statusCode:  \(model.errorCode ?? 0)" )
+                            print("Error: \(model.message ?? "")")
                         }
                         catch let error {
                             print("Error: \(error)")
@@ -111,13 +117,16 @@ class RestClientApi {
     }
     
     func doApiCall(components: URLComponents, success: @escaping (_ response: RecsAndPathwaysResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
-        var request = URLRequest(url: ((components.url!)))
+        guard let url = components.url else {
+            return failure(NSError(domain: "", code: 0))
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
         
         //v2 API requires passing the auth-key as a request
-        if(BrApi.shared.brApiRequest?.authKey != nil) {
-            request.setValue(BrApi.shared.brApiRequest?.authKey, forHTTPHeaderField:  "auth_key")
+        if let authKey = BrApi.shared.brApiRequest?.authKey {
+            request.setValue(authKey, forHTTPHeaderField:  "auth_key")
         }
         // URLSession.
         
@@ -146,7 +155,7 @@ class RestClientApi {
                     if let _data = _data {
                         do {
                             let model = try JSONDecoder().decode(RpError.self, from: _data)
-                            print("Error: \(String(describing: model.detail))")
+                            print("Error: \(model.detail ?? "")")
                         }
                         catch let error {
                             print("Error: \(error)")
