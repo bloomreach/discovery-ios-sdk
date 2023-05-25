@@ -37,8 +37,9 @@ public class RequestMap<T> {
         if let value = value, !value.isEmpty {
             if let val = requestMap[key] {
                 if(val is [String]) {
-                    //(val as! [String]).append(value) //TODO
-                    requestMap[key] = val
+                    var list = val as! [String]
+                    list.append(value)
+                    requestMap[key] = list
                 } else if (val is String) {
                     var list = [String]()
                     list.append(val as! String)
