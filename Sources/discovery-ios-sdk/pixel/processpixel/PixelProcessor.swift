@@ -119,6 +119,16 @@ class PixelProcessor: QueueChanged  {
             queryMap["view_id"] = PixelTracker.shared.brPixel!.viewId
         }
         
+        // currency  present
+        if (!(PixelTracker.shared.brPixel!.currency ?? "").isEmpty) {
+            queryMap["currency"] = PixelTracker.shared.brPixel!.currency
+        }
+        
+        // domainkey  present
+        if (!(PixelTracker.shared.brPixel!.domainKey ?? "").isEmpty) {
+            queryMap["domain_key"] = PixelTracker.shared.brPixel!.domainKey
+        }
+        
         return queryMap
     }
     
@@ -241,6 +251,16 @@ class PixelProcessor: QueueChanged  {
         // viewId  present
         if (!(PixelTracker.shared.brPixel!.viewId ?? "").isEmpty) {
             queryMap["view_id"] = PixelTracker.shared.brPixel!.viewId
+        }
+        
+        // currency  present
+        if (!(PixelTracker.shared.brPixel!.currency ?? "").isEmpty) {
+            queryMap["currency"] = PixelTracker.shared.brPixel!.currency
+        }
+        
+        // domainkey  present
+        if (!(PixelTracker.shared.brPixel!.domainKey ?? "").isEmpty) {
+            queryMap["domain_key"] = PixelTracker.shared.brPixel!.domainKey
         }
         
         // Validate Pixel only when in DEBUG mode
