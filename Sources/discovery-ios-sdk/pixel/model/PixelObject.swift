@@ -82,7 +82,9 @@ public enum PageType: String {
     case  CONTENT_PAGE = "content"
     // Bloomreach Thematic pages need to be classified as
     case THEMATIC_PAGE = "thematic"
-    // Any Conversion/ Thank You pages as well as any page types that are not one of the above need to be classified as
+    // Any Conversion/ Thank You pages
+    case CONVERSION = "conversion"
+    //Any page types that are not one of the above need to be classified as
     case OTHER_PAGE = "other"
 }
 
