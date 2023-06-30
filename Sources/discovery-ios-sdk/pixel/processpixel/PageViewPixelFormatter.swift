@@ -95,7 +95,7 @@ class PageViewPixelFormatter {
      - returns Map with value in required format
      */
     func prepareConversionPageViewQuery(pixelObject: PixelObject, queryMap: inout [String: String?]) -> [String: String?] {
-        queryMap["isConversion"] = String(pixelObject.isConversion ?? 0)
+        queryMap["is_conversion"] = String(pixelObject.isConversion ?? 0)
         queryMap["basket_value"] = pixelObject.basketValue
         queryMap["order_id"] = pixelObject.orderId
         queryMap["basket"] = FormatterUtils.shared.formatBasket(basketItems: pixelObject.basket ?? [])

@@ -225,7 +225,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.PAGEVIEW,
-                pType: PageType.OTHER_PAGE,
+                pType: PageType.CONVERSION,
                 ref: ref,
                 title: title
             )

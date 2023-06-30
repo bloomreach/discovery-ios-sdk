@@ -162,8 +162,11 @@ class PixelProcessor: QueueChanged  {
         case PageType.CATEGORY_PAGE:
             return pageViewPixelFormatter.prepareCategoryPageViewQuery(pixelObject: pixelObject, queryMap: &queryMap)
             
-        case PageType.OTHER_PAGE:
+        case PageType.CONVERSION:
             return pageViewPixelFormatter.prepareConversionPageViewQuery(pixelObject: pixelObject, queryMap: &queryMap)
+            
+//        case PageType.OTHER_PAGE:
+//            return pageViewPixelFormatter.prepareConversionPageViewQuery(pixelObject: pixelObject, queryMap: &queryMap)
             
         default: return queryMap
         }
