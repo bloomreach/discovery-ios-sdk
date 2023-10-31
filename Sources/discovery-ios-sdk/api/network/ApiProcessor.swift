@@ -20,10 +20,11 @@ class ApiProcessor {
      */
     func processCoreApi(parameters:  [String: Any?],  success: @escaping (_ response: CoreResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var queryMap = parameters
-        let url = URL(string: getBaseUrlForCore())
+        var url = URL(string: getBaseUrlForCore())
+    
         if let urlString = url, var components = URLComponents(string: urlString.absoluteString) {
             let params = prepareGlobalQuery(queryMap: &queryMap)
-            components.queryItems = getQueryItemArray(params: params)
+            components.percentEncodedQuery = getQueryItemString(params: params)
             restClientApi.doApiCall(components: components, success: success, failure: failure)
         } else {
             failure(NSError(domain: "", code: 0))
@@ -40,7 +41,7 @@ class ApiProcessor {
         let url = URL(string: getBaseUrlForSuggest())
         if let urlString = url, var components = URLComponents(string: urlString.absoluteString) {
             let params = prepareGlobalQuery(queryMap: &queryMap)
-            components.queryItems = getQueryItemArray(params: params)
+            components.percentEncodedQuery = getQueryItemString(params: params)
             restClientApi.doApiCall(components: components, success: success, failure: failure)
         } else {
             failure(NSError(domain: "", code: 0))
@@ -59,7 +60,7 @@ class ApiProcessor {
         let url = URL(string: getBaseUrlForRp(widgetType: widgetType, widgetId: widgetId))
         if let urlString = url, var components = URLComponents(string: urlString.absoluteString) {
             let params = prepareGlobalQuery(queryMap: &queryMap)
-            components.queryItems = getQueryItemArray(params: params)
+            components.percentEncodedQuery = getQueryItemString(params: params)
             restClientApi.doApiCall(components: components, success: success, failure: failure)
         } else {
             failure(NSError(domain: "", code: 0))
@@ -111,6 +112,37 @@ class ApiProcessor {
             }
         }
         return qeryItemArr
+    }
+    
+
+    private func getQueryItemString(params:  [String: Any?]) -> String {
+        //adding support to encode + sign
+        var cs = CharacterSet.urlQueryAllowed
+        cs.remove("+")
+        
+        var queryItemString = ""
+        _ = params.map { (key, value) in
+            
+            if(!queryItemString.isEmpty) {
+                queryItemString.append("&")
+            }
+            
+            if value is [String] {
+                for listValue in (value as! [String]) {
+                   if let listValue = listValue.addingPercentEncoding(withAllowedCharacters: cs) {
+                        queryItemString.append("\(key)=\(listValue)")
+                    }
+                }
+            } else {
+                if let value = value {
+                    if let encodedValue = (value as! String).addingPercentEncoding(withAllowedCharacters: cs) {
+                        queryItemString.append("\(key)=\(encodedValue)")
+                    }
+                    
+                }
+            }
+        }
+        return queryItemString
     }
     
     /**

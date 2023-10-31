@@ -8,7 +8,6 @@ import Foundation
 
 
 class RestClientApi {
-    
     /**
      Method to HTTP call for all API
      */
@@ -16,6 +15,7 @@ class RestClientApi {
         guard let url = components.url else {
             return failure(NSError(domain: "", code: 0))
         }
+        print("API URL: \(url.absoluteString)")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
@@ -68,6 +68,7 @@ class RestClientApi {
         guard let url = components.url else {
             return failure(NSError(domain: "", code: 0))
         }
+        print("API URL: \(url.absoluteString)")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
@@ -120,6 +121,7 @@ class RestClientApi {
         guard let url = components.url else {
             return failure(NSError(domain: "", code: 0))
         }
+        print("API URL: \(url.absoluteString)")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
