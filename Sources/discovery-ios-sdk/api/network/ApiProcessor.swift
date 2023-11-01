@@ -114,36 +114,56 @@ class ApiProcessor {
         return qeryItemArr
     }
     
-
     private func getQueryItemString(params:  [String: Any?]) -> String {
-        //adding support to encode + sign
-        var cs = CharacterSet.urlQueryAllowed
-        cs.remove("+")
-        
-        var queryItemString = ""
-        _ = params.map { (key, value) in
+            //adding support to encode + sign
+            var cs = CharacterSet.urlQueryAllowed
+            cs.remove("+")
             
-            if(!queryItemString.isEmpty) {
-                queryItemString.append("&")
-            }
-            
-            if value is [String] {
-                for listValue in (value as! [String]) {
-                   if let listValue = listValue.addingPercentEncoding(withAllowedCharacters: cs) {
-                        queryItemString.append("\(key)=\(listValue)")
+            var queryItemString = ""
+            _ = params.map { (key, value) in
+                
+                if value is [String] {
+                    for listValue in (value as! [String]) {
+                        
+                        if(key == "sort") {
+                            if(!queryItemString.isEmpty) {
+                                queryItemString.append("&")
+                            }
+                            queryItemString.append("\(key)=\(listValue)")
+                        } else {
+                            if let listValue = listValue.addingPercentEncoding(withAllowedCharacters: cs) {
+                                if(!queryItemString.isEmpty) {
+                                    queryItemString.append("&")
+                                }
+                                queryItemString.append("\(key)=\(listValue)")
+                            }
+                        }
                     }
-                }
-            } else {
-                if let value = value {
-                    if let encodedValue = (value as! String).addingPercentEncoding(withAllowedCharacters: cs) {
-                        queryItemString.append("\(key)=\(encodedValue)")
-                    }
+                } else {
                     
+                    if(key == "sort") {
+                        if let value = value {
+                            if(!queryItemString.isEmpty) {
+                                queryItemString.append("&")
+                            }
+                            queryItemString.append("\(key)=\(value)")
+                        }
+                    } else {
+                        if let value = value {
+                            if value is String {
+                                if let encodedValue = (value as! String).addingPercentEncoding(withAllowedCharacters: cs) {
+                                    if(!queryItemString.isEmpty) {
+                                        queryItemString.append("&")
+                                    }
+                                    queryItemString.append("\(key)=\(encodedValue)")
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            return queryItemString
         }
-        return queryItemString
-    }
     
     /**
      Method to add global request parameters to Uri Builder
