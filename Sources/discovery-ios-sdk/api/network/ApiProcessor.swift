@@ -122,20 +122,21 @@ class ApiProcessor {
         
         var queryItemString = ""
         _ = params.map { (key, value) in
-            
-            if(!queryItemString.isEmpty) {
-                queryItemString.append("&")
-            }
-            
             if value is [String] {
                 for listValue in (value as! [String]) {
                    if let listValue = listValue.addingPercentEncoding(withAllowedCharacters: cs) {
+                       if(!queryItemString.isEmpty) {
+                           queryItemString.append("&")
+                       }
                         queryItemString.append("\(key)=\(listValue)")
                     }
                 }
             } else {
                 if let value = value {
                     if let encodedValue = (value as! String).addingPercentEncoding(withAllowedCharacters: cs) {
+                        if(!queryItemString.isEmpty) {
+                            queryItemString.append("&")
+                        }
                         queryItemString.append("\(key)=\(encodedValue)")
                     }
                     
