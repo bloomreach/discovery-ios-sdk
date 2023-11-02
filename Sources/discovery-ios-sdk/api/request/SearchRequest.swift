@@ -84,7 +84,8 @@ public class SearchRequest<T>: RequestMap<T> {
      - returns A reference to the current Request object
      */
     public func sort(value: String?) -> T {
-        return set(key: "sort", value: value)
+        let newSortValue = value?.replacingOccurrences(of: "+", with: " ")
+        return set(key: "sort", value: newSortValue)
     }
     
     /**
