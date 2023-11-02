@@ -20,7 +20,7 @@ class ApiProcessor {
      */
     func processCoreApi(parameters:  [String: Any?],  success: @escaping (_ response: CoreResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
         var queryMap = parameters
-        var url = URL(string: getBaseUrlForCore())
+        let url = URL(string: getBaseUrlForCore())
     
         if let urlString = url, var components = URLComponents(string: urlString.absoluteString) {
             let params = prepareGlobalQuery(queryMap: &queryMap)
@@ -124,39 +124,21 @@ class ApiProcessor {
                 
                 if value is [String] {
                     for listValue in (value as! [String]) {
-                        
-                        if(key == "sort") {
+                        if let listValue = listValue.addingPercentEncoding(withAllowedCharacters: cs) {
                             if(!queryItemString.isEmpty) {
                                 queryItemString.append("&")
                             }
                             queryItemString.append("\(key)=\(listValue)")
-                        } else {
-                            if let listValue = listValue.addingPercentEncoding(withAllowedCharacters: cs) {
-                                if(!queryItemString.isEmpty) {
-                                    queryItemString.append("&")
-                                }
-                                queryItemString.append("\(key)=\(listValue)")
-                            }
                         }
                     }
                 } else {
-                    
-                    if(key == "sort") {
-                        if let value = value {
-                            if(!queryItemString.isEmpty) {
-                                queryItemString.append("&")
-                            }
-                            queryItemString.append("\(key)=\(value)")
-                        }
-                    } else {
-                        if let value = value {
-                            if value is String {
-                                if let encodedValue = (value as! String).addingPercentEncoding(withAllowedCharacters: cs) {
-                                    if(!queryItemString.isEmpty) {
-                                        queryItemString.append("&")
-                                    }
-                                    queryItemString.append("\(key)=\(encodedValue)")
+                    if let value = value {
+                        if value is String {
+                            if let encodedValue = (value as! String).addingPercentEncoding(withAllowedCharacters: cs) {
+                                if(!queryItemString.isEmpty) {
+                                    queryItemString.append("&")
                                 }
+                                queryItemString.append("\(key)=\(encodedValue)")
                             }
                         }
                     }
