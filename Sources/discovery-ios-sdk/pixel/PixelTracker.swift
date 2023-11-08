@@ -162,7 +162,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.PAGEVIEW,
-                pType: PageType.SEARCH_PAGE,
+                pType: PageType.CATEGORY_PAGE,
                 ref: ref,
                 title: title
             )
@@ -239,7 +239,7 @@ public class PixelTracker {
             pixelProcessor.processPixel(pixelObject: pixelObject)
             
         } else {
-            // Log.e(TAG, "Pixel Tracker not initialised")
+            print("Pixel Tracker not initialised")
         }
     }
     
@@ -403,7 +403,7 @@ public class PixelTracker {
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
                 pType: PageType.PRODUCT_PAGE,
-                group: GroupType.SUGGEST,
+                group: GroupType.PRODUCT,
                 eType: "quickview",
                 ref: ref,
                 title: title,
