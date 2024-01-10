@@ -63,6 +63,7 @@ public enum WidgetApiType: String {
     case KEYWORD = "keyword"
     case PERSONALIZED = "personalized"
     case GLOBAL = "global"
+    case VISUAL_SEARCH = "visual/search"
 }
 
 enum BrApiException: Error {

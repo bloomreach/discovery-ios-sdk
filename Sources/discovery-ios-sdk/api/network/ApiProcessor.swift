@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ApiProcessor {
     
@@ -62,6 +63,25 @@ class ApiProcessor {
             let params = prepareGlobalQuery(queryMap: &queryMap)
             components.percentEncodedQuery = getQueryItemString(params: params)
             restClientApi.doApiCall(components: components, success: success, failure: failure)
+        } else {
+            failure(NSError(domain: "", code: 0))
+        }
+    }
+    
+    /**
+     Method to call Image Upload API for visual search and invoke the callback with appropriate result
+     - parameters:
+     - widgetId: The ID of the widget, which can be found in the Widget Configurator in the Dashboard.
+     - fileName: File name of the image
+     - image: Actual image in UIImage format
+     */
+    func processVisualSearchUploadApi(widgetId: String, fileName: String, image: UIImage, success: @escaping (_ response: ImageUploadResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
+        var queryMap: [String: Any?] = [:]
+        let url = URL(string: getBaseUrlForRp(widgetType: "visual/upload", widgetId: widgetId))
+        if let urlString = url, var components = URLComponents(string: urlString.absoluteString) {
+            let params = prepareGlobalQuery(queryMap: &queryMap)
+            components.percentEncodedQuery = getQueryItemString(params: params)
+            restClientApi.uploadImage(fileName: fileName, image: image, components: components, success: success, failure: failure)
         } else {
             failure(NSError(domain: "", code: 0))
         }
@@ -170,7 +190,7 @@ class ApiProcessor {
         queryMap["ref_url"] = ""
         
         // customer user id
-        if (!(PixelTracker.shared.brPixel!.userId ?? "").isEmpty) {
+        if (!(BrApi.shared.brApiRequest?.userId ?? "").isEmpty) {
             queryMap["user_id"] = BrApi.shared.brApiRequest?.userId
         }
         

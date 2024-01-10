@@ -45,6 +45,11 @@ public struct RpDoc {
     public let manufacturer: String?
     public let price: Double?
     public let type, catalogNumber, pid: String?
+    public let brand: String?
+    public let description: String?
+    public let salePrice: Double?
+    public let thumbImage: String?
+    public let title: String?
     public var extraOptions: [String: AnyDecodable?]
 }
 
@@ -190,13 +195,19 @@ extension RpResponse: Decodable {
     }
 }
 
-extension RpDoc: Decodable {
+extension RpDoc: Decodable, Hashable {
     private enum KnownCodingKeys: CodingKey, CaseIterable {
         case manufacturer
         case price
         case type
         case catalog_number
         case pid
+        case brand
+        case description
+        case sale_price
+        case thumb_image
+        case title
+        case url
         
         static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
             !Self.allCases.map(\.stringValue).contains(key.stringValue)
@@ -211,6 +222,12 @@ extension RpDoc: Decodable {
         self.type = try container.decodeIfPresent(String.self, forKey: .type)
         self.catalogNumber = try container.decodeIfPresent(String.self, forKey: .catalog_number)
         self.pid = try container.decodeIfPresent(String.self, forKey: .pid)
+        
+        self.brand = try container.decodeIfPresent(String.self, forKey: .brand)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
+        self.salePrice = try container.decodeIfPresent(Double.self, forKey: .sale_price)
+        self.thumbImage = try container.decodeIfPresent(String.self, forKey: .thumb_image)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
         
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)

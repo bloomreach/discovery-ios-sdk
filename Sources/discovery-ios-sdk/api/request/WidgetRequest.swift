@@ -324,4 +324,14 @@ public class WidgetRequest : RequestMap<WidgetRequest> {
     public func url(value: String) -> WidgetRequest {
         return set(key: "url", value: value)
     }
+    
+    /**
+     Method to set url
+     - parameters:
+     - value: The absolute URL of the page where the request is initiated. Do not use a relative URL.
+     - returns A reference to the current Request object
+     */
+    public func imageId(value: String) -> WidgetRequest {
+        return set(key: "image_id", value: value)
+    }
 }
