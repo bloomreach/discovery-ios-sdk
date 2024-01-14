@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class BrApi {
     
@@ -162,5 +163,31 @@ public class BrApi {
         }
         try recAndPathwaysWidgetApi(widgetId: widgetId, apiType: WidgetApiType.GLOBAL.rawValue, widgetRequest: widgetRequest, success: success, failure: failure)
     }
+    
+    /**
+     Method to call Image Upload API for visual search
+     - parameters:
+     - widgetId: The ID of the widget, which can be found in the Widget Configurator in the Dashboard.
+     - fileName: File name of the image
+     - image: Actual image in UIImage format
+     */
+    public func uploadImageForVisualSearch(widgetId: String, fileName: String, image: UIImage, success: @escaping (_ response: ImageUploadResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) throws {
+        if(widgetId.isEmpty) {
+            throw BrApiException.EmptyValue(errorMessage: "Widget Id should not be empty")
+        }
+        apiProcessor.processVisualSearchUploadApi(widgetId: widgetId, fileName: fileName, image: image, success: success, failure: failure)
+    }
+    
+    /**
+     Method for calling Visual Search Widget API
+     - parameters:
+     - widgetId: The ID of the widget, which can be found in the Widget Configurator in the Dashboard.
+     - widgetRequest: Request Object required for Global Recommendation Widget API
+     */
+    public func visualSearchWidgetApi(widgetId: String, widgetRequest: WidgetRequest,  success: @escaping (_ response: RecsAndPathwaysResponse?) -> Void, failure: @escaping (_ error: Error?) -> Void) throws {
+        if(widgetId.isEmpty) {
+            throw BrApiException.EmptyValue(errorMessage: "Widget Id should not be empty")
+        }
+        try recAndPathwaysWidgetApi(widgetId: widgetId, apiType: WidgetApiType.VISUAL_SEARCH.rawValue, widgetRequest: widgetRequest, success: success, failure: failure)
+    }
 }
-

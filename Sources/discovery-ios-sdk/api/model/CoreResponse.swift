@@ -45,6 +45,30 @@ public struct FacetCounts {
     public let facetFields: [String: [FacetFields]]?
     public let facetQueries: [String: Int]?
     public let facetRanges: [String: [FacetRange]]?
+    //facet v3
+    public let facets: [Facet]?
+    public var extraOptions: [String: AnyDecodable?]
+}
+
+// MARK: - Facet
+public struct Facet {
+    public let name: String?
+    public let type: String?
+    public let value: [FacetValue?]?
+    public var extraOptions: [String: AnyDecodable?]
+}
+
+// MARK: - FacetValue
+ public struct FacetValue {
+    public let start: AnyDecodable?
+    public let end: AnyDecodable?
+    public let count: Int?
+    public let name: String?
+    public let catId: String?
+    public let catName: String?
+    public let crumb: String?
+    public let treePath: String?
+    public let parent: String?
     public var extraOptions: [String: AnyDecodable?]
 }
 
@@ -234,6 +258,7 @@ extension FacetCounts: Decodable {
         case facet_fields
         case facet_queries
         case facet_ranges
+        case facets
         
         static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
             !Self.allCases.map(\.stringValue).contains(key.stringValue)
@@ -246,6 +271,88 @@ extension FacetCounts: Decodable {
         self.facetFields = try container.decodeIfPresent([String: [FacetFields]].self, forKey: .facet_fields)
         self.facetQueries = try container.decodeIfPresent([String: Int].self, forKey: .facet_queries)
         self.facetRanges = try container.decodeIfPresent([String: [FacetRange]].self, forKey: .facet_ranges)
+        self.facets = try container.decodeIfPresent([Facet].self, forKey: .facets)
+        
+        self.extraOptions = [:]
+        let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
+        
+        for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
+            let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
+            self.extraOptions[key.stringValue] = decoded
+        }
+    }
+}
+
+extension Facet: Decodable {
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case name
+        case type
+        case value
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: KnownCodingKeys.self)
+        
+        self.name = try container.decodeIfPresent(String.self, forKey: .name)
+        self.type = try container.decodeIfPresent(String.self, forKey: .type)
+//        if let value = try container.decodeIfPresent([FacetValue].self, forKey: .value) {
+//            self.value = value
+//        } else {
+//            let singleValue = try container.decodeIfPresent(FacetValue.self, forKey: .value)
+//            self.value = [singleValue]
+//        }
+        
+        do {
+            self.value = try container.decodeIfPresent([FacetValue].self, forKey: .value)
+        } catch DecodingError.typeMismatch {
+            var singleValue = try container.decodeIfPresent(FacetValue.self, forKey: .value)
+            self.value = [singleValue]
+        }
+      
+        
+        self.extraOptions = [:]
+        let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
+        
+        for key in extraContainer.allKeys where KnownCodingKeys.doesNotContain(key) {
+            let decoded = try extraContainer.decode(AnyDecodable?.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
+            self.extraOptions[key.stringValue] = decoded
+        }
+    }
+}
+
+extension FacetValue: Decodable {
+    private enum KnownCodingKeys: CodingKey, CaseIterable {
+        case name
+        case count
+        case cat_id
+        case cat_name
+        case crumb
+        case tree_path
+        case parent
+        case start
+        case end
+        
+        static func doesNotContain(_ key: DynamicCodingKeys) -> Bool {
+            !Self.allCases.map(\.stringValue).contains(key.stringValue)
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: KnownCodingKeys.self)
+        
+        self.name = try container.decodeIfPresent(String.self, forKey: .name)
+        self.count = try container.decodeIfPresent(Int.self, forKey: .count)
+        self.catId = try container.decodeIfPresent(String.self, forKey: .cat_id)
+        self.catName = try container.decodeIfPresent(String.self, forKey: .cat_name)
+        self.crumb = try container.decodeIfPresent(String.self, forKey: .crumb)
+        self.treePath = try container.decodeIfPresent(String.self, forKey: .tree_path)
+        self.parent = try container.decodeIfPresent(String.self, forKey: .parent)
+        self.start = try container.decodeIfPresent(AnyDecodable.self, forKey: .start)
+        self.end = try container.decodeIfPresent(AnyDecodable.self, forKey: .end)
         
         self.extraOptions = [:]
         let extraContainer = try decoder.container(keyedBy: DynamicCodingKeys.self)
