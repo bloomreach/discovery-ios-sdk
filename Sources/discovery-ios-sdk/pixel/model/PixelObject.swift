@@ -62,6 +62,15 @@ final class PixelObject {
         self.prodName = prodName
         self.prodSku = prodSku
     }
+    
+    init(type: PixelType, pType: PageType, group: GroupType, eType: String, ref: String, title: String) {
+        self.type = type
+        self.pType = pType
+        self.group = group
+        self.eType = eType
+        self.title = title
+        self.ref = ref
+    }
 }
 
 public enum PixelType: String {

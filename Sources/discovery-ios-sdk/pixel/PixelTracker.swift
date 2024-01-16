@@ -294,12 +294,49 @@ public class PixelTracker {
      - parameters:
      - ref: Synthetic URL from referrer screen
      - title: Screen name of the app view.
+     - searchTerm: The value of the search query describing the page.
+     - catalogs: Array of CatalogItem that are shown in the page.
+     */
+    public func searchEventPixel(
+        ref: String,
+        title: String,
+        searchTerm: String,
+        catalogs: [CatalogItem]? = nil
+    ) {
+        if (brPixel != nil) {
+            // create pixel object based ob input
+            let pixelObject = PixelObject(
+                type: PixelType.EVENT,
+                pType: PageType.PRODUCT_PAGE,
+                group: GroupType.SUGGEST,
+                eType: "submit",
+                ref: ref,
+                title: title
+            )
+            
+            pixelObject.searchTerm = searchTerm
+            pixelObject.catalogs = catalogs
+            
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject: pixelObject)
+            
+        } else {
+            print("Pixel Tracker not initialised")
+        }
+    }
+    
+    /**
+     Method for sending the Search Event Pixel
+     - parameters:
+     - ref: Synthetic URL from referrer screen
+     - title: Screen name of the app view.
      - prodId: This is the unique ID which describes a product or product collection.
      - prodName: The name of the product being viewed.
      - sku: Unique sku ID that represents the selected variant of this product. If your site does not have SKUs, leave this blank.
      - searchTerm: The value of the search query describing the page.
      - catalogs: Array of CatalogItem that are shown in the page.
      */
+    @available(*, deprecated, message: "This function will be removed in future version. Instead use searchEventPixel(ref, title, searchTerm, catalogs)")
     public func searchEventPixel(
         ref: String,
         title: String,
