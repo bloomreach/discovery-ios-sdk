@@ -178,8 +178,14 @@ class PixelProcessor: QueueChanged  {
     ) -> [String: String?] {
         queryMap["group"] = pixelObject.group?.rawValue
         queryMap["etype"] = pixelObject.eType
-        queryMap["prod_id"] = pixelObject.prodId
-        queryMap["prod_name"] = pixelObject.prodName
+        
+        if(pixelObject.prodId != nil) {
+            queryMap["prod_id"] = pixelObject.prodId
+        }
+        
+        if(pixelObject.prodName != nil) {
+            queryMap["prod_name"] = pixelObject.prodName
+        }
         
         if(pixelObject.prodSku != nil) {
             queryMap["sku"] = pixelObject.prodSku
