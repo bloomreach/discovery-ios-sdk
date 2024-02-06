@@ -376,6 +376,45 @@ public class PixelTracker {
      - parameters:
      - ref: Synthetic URL from referrer screen
      - title: Screen name of the app view.
+     - typedTerm: The display query (the one or more letters) that the user has actually typed.  This is NOT the suggested word or phrase.
+     - searchTerm: The value of the search query describing the page.
+     - catalogs: Array of CatalogItem that are shown in the page.
+     */
+    public func suggestionEventPixel(
+        ref: String,
+        title: String,
+        typedTerm: String,
+        searchTerm: String,
+        catalogs: [CatalogItem]? = nil
+    ) {
+        if (brPixel != nil) {
+            // create pixel object based ob input
+            let pixelObject = PixelObject(
+                type: PixelType.EVENT,
+                pType: PageType.PRODUCT_PAGE,
+                group: GroupType.SUGGEST,
+                eType: "click",
+                ref: ref,
+                title: title
+            )
+            
+            pixelObject.typedTerm = typedTerm
+            pixelObject.searchTerm = searchTerm
+            pixelObject.catalogs = catalogs
+            
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject: pixelObject)
+            
+        } else {
+            print("Pixel Tracker not initialised")
+        }
+    }
+    
+    /**
+     Method for sending the Suggestion Event Pixel
+     - parameters:
+     - ref: Synthetic URL from referrer screen
+     - title: Screen name of the app view.
      - prodId: This is the unique ID which describes a product or product collection.
      - prodName: The name of the product being viewed.
      - sku: Unique sku ID that represents the selected variant of this product. If your site does not have SKUs, leave this blank.
@@ -383,6 +422,7 @@ public class PixelTracker {
      - searchTerm: The value of the search query describing the page.
      - catalogs: Array of CatalogItem that are shown in the page.
      */
+    @available(*, deprecated, message: "This function will be removed in future version. Instead use suggestionEventPixel(ref, title, typedTerm, searchTerm, catalogs)")
     public func suggestionEventPixel(
         ref: String,
         title: String,
