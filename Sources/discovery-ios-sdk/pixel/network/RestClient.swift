@@ -56,14 +56,18 @@ class RestClient {
     func submitPixel(parameters: [String: String?]) {
         guard let baseUrl = PixelTracker.shared.brPixel?.pixelUrlByRegion,
               let url = URL(string: "https://\(baseUrl)/pix.gif"),
-              var components = URLComponents(string: url.absoluteString),
-              let urlRequest = components.url else {
-            return
-        }
+              var components = URLComponents(string: url.absoluteString)
+              else {
+                    return
+                }
         components.queryItems = parameters.map { (key, value) in
-            URLQueryItem(name: key, value: value)
+                URLQueryItem(name: key, value: value)
         }
+        
+        guard let urlRequest = components.url else { return }
+        
         var request = URLRequest(url: urlRequest)
+        //print("url: \(String(describing: request.url))")
         request.httpMethod = "GET"
         request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
         
