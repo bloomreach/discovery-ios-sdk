@@ -23,6 +23,8 @@ public class BrPixel {
     public var customerProfile: String? = nil
     
     public var viewId: String? = nil
+    // for turning off Pixel Validator logs
+    public var debugMode: Bool = false
     
     public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String) {
         self.accountId = accountId

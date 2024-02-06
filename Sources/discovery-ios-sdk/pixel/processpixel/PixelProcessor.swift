@@ -50,9 +50,11 @@ class PixelProcessor: QueueChanged  {
         }
         
         // Validate Pixel only when in DEBUG mode
+        if (PixelTracker.shared.brPixel!.debugMode) {
 #if DEBUG
-        pixelValidator.validatePixel(queryMap: queryMap)
+            pixelValidator.validatePixel(queryMap: queryMap)
 #endif
+        }
         
         // add the processed Map to Queue for further process
         PixelQueue.shared.enqueue(value: queryMap)
@@ -273,9 +275,11 @@ class PixelProcessor: QueueChanged  {
         }
         
         // Validate Pixel only when in DEBUG mode
+        if (PixelTracker.shared.brPixel!.debugMode) {
 #if DEBUG
-        pixelValidator.validatePixel(queryMap: queryMap)
+            pixelValidator.validatePixel(queryMap: queryMap)
 #endif
+        }
         
         // add the processed Map to Queue for further process
         PixelQueue.shared.enqueue(value: queryMap)
