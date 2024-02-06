@@ -374,4 +374,14 @@ public class SearchRequest<T>: RequestMap<T> {
         return set(key: "url", value: value)
     }
     
+    /**
+     Method to set Facet Version
+     - parameters:
+     - value: facet version eg: '3.0'
+     - returns A reference to the current Request object
+     */
+    public func facetVersion(value: String) -> T {
+        return set(key: "facet.version", value: value)
+    }
+    
 }
