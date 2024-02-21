@@ -17,7 +17,7 @@ class PageViewPixelFormatter {
      */
     func prepareProductPageViewQuery(pixelObject: PixelObject, queryMap: inout [String: String?]) ->  [String: String?] {
         queryMap["prod_id"] = pixelObject.prodId
-        queryMap["prod_name"] = pixelObject.prodId
+        queryMap["prod_name"] = pixelObject.prodName
         
         if(pixelObject.prodSku != nil) {
             queryMap["sku"] = pixelObject.prodSku
