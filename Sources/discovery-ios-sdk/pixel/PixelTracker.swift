@@ -47,6 +47,77 @@ public class PixelTracker {
     }
     
     /**
+     Method for sending the Page View Pixel
+     - parameters:
+     - ref: Synthetic URL from referrer screen
+     - title: Screen name of the app view.
+     - pageType:  page type of the Pixel from the page its getting called
+     */
+    public func pageViewPixel(ref: String, title: String, pageType: PageType) {
+        if (brPixel != nil) {
+            // create pixel object based on input
+            let pixelObject = PixelObject(type: PixelType.PAGEVIEW,
+                                          pType: pageType,
+                                          ref: ref,
+                                          title: title
+            )
+            
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject: pixelObject)
+            
+        } else {
+            print("Pixel Tracker not initialised")
+        }
+    }
+    
+    /**
+     Method for sending the Home Page View Pixel
+     - parameters:
+     - ref: Synthetic URL from referrer screen
+     - title: Screen name of the app view.
+     */
+    public func homePageViewPixel(ref: String, title: String) {
+        if (brPixel != nil) {
+            // create pixel object based on input
+            let pixelObject = PixelObject(type: PixelType.PAGEVIEW,
+                                          pType: PageType.HOME_PAGE,
+                                          ref: ref,
+                                          title: title
+            )
+            
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject: pixelObject)
+            
+        } else {
+            print("Pixel Tracker not initialised")
+        }
+    }
+    
+    /**
+     Method for sending the Other Page View Pixel
+     - parameters:
+     - ref: Synthetic URL from referrer screen
+     - title: Screen name of the app view.
+     */
+    public func otherPageViewPixel(ref: String, title: String) {
+        if (brPixel != nil) {
+            // create pixel object based on input
+            let pixelObject = PixelObject(type: PixelType.PAGEVIEW,
+                                          pType: PageType.OTHER_PAGE,
+                                          ref: ref,
+                                          title: title
+            )
+            
+            // send pixel for further processing
+            pixelProcessor.processPixel(pixelObject: pixelObject)
+            
+        } else {
+            print("Pixel Tracker not initialised")
+        }
+    }
+    
+    
+    /**
      Method for sending the Product Page View Pixel
      - parameters:
      - ref: Synthetic URL from referrer screen
@@ -69,7 +140,7 @@ public class PixelTracker {
                 ref: ref, title: title, prodId: prodId, prodName: prodName, prodSku: sku
             )
             
-            //                 send pixel for further processing
+            // send pixel for further processing
             pixelProcessor.processPixel(pixelObject: pixelObject)
             
         } else {
@@ -103,6 +174,7 @@ public class PixelTracker {
             )
             pixelObject.itemId = itemId
             pixelObject.itemName = itemName
+            pixelObject.catalogs = catalogs
             
             // send pixel for further processing
             pixelProcessor.processPixel(pixelObject: pixelObject)
@@ -307,7 +379,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
-                pType: PageType.PRODUCT_PAGE,
+                pType: PageType.SEARCH_PAGE,
                 group: GroupType.SUGGEST,
                 eType: "submit",
                 ref: ref,
@@ -391,7 +463,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
-                pType: PageType.PRODUCT_PAGE,
+                pType: PageType.SEARCH_PAGE,
                 group: GroupType.SUGGEST,
                 eType: "click",
                 ref: ref,
