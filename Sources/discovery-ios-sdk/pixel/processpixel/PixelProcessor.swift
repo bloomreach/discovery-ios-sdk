@@ -131,6 +131,12 @@ class PixelProcessor: QueueChanged  {
             queryMap["domain_key"] = PixelTracker.shared.brPixel!.domainKey
         }
         
+        // Event Manager Pixel integration mode only when in DEBUG mode
+        if (PixelTracker.shared.brPixel!.debugMode) {
+            queryMap["debug"] = String(PixelTracker.shared.brPixel!.debugMode)
+        }
+        
+        
         return queryMap
     }
     
@@ -279,6 +285,11 @@ class PixelProcessor: QueueChanged  {
 #if DEBUG
             pixelValidator.validatePixel(queryMap: queryMap)
 #endif
+        }
+        
+        // Event Manager Pixel integration mode only when in DEBUG mode
+        if (PixelTracker.shared.brPixel!.debugMode) {
+            queryMap["debug"] = String(PixelTracker.shared.brPixel!.debugMode)
         }
         
         // add the processed Map to Queue for further process

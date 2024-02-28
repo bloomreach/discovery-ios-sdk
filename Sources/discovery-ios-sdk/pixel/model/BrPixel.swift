@@ -23,7 +23,7 @@ public class BrPixel {
     public var customerProfile: String? = nil
     
     public var viewId: String? = nil
-    // for turning off Pixel Validator logs
+    // for turning on/off Pixel Validator logs and integration mode of Events manager
     public var debugMode: Bool = false
     
     public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String) {
@@ -34,7 +34,7 @@ public class BrPixel {
         self.pixelUrlByRegion = PixelRegion.NA.rawValue
     }
     
-    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil, viewId: String? = nil) {
+    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil, viewId: String? = nil, debugMode: Bool = false) {
         self.accountId = accountId
         self.uuid = uuid
         self.visitorType = visitorType
@@ -49,7 +49,7 @@ public class BrPixel {
         self.customerGeo = customerGeo
         self.customerProfile = customerProfile
         self.viewId = viewId
-        
+        self.debugMode = debugMode
     }
 }
 

@@ -67,9 +67,9 @@ class RestClient {
         guard let urlRequest = components.url else { return }
         
         var request = URLRequest(url: urlRequest)
-        //print("url: \(String(describing: request.url))")
+        print("url: \(String(describing: request.url))")
         request.httpMethod = "GET"
-        request.setValue("Bloomreach/1.0.0 iOS", forHTTPHeaderField:  "User-Agent")
+        request.setValue("Bloomreach/1.0.11 iOS", forHTTPHeaderField:  "User-Agent")
         
         // URLSession.
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
