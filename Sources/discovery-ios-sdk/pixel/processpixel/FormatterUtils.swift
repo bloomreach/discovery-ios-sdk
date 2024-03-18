@@ -31,9 +31,14 @@ class FormatterUtils {
      - hitcount: ENUM VisitorType (The hitcount value should be 1 for a new visitor, or 2 for returning visitors.)
      - returns String  value in 'uid={{UUID}}:v=app:ts=0:hc={{hitcount}}' format
      */
-    func formatCookieValue(uuid: String, hitcount: VisitorType) -> String {
+    func formatCookieValue(uuid: String, hitcount: VisitorType, cdpSegments: String? = nil) -> String {
         // convert uid={{UUID}}:v=app:ts=0:hc={{hitcount}}
-        return "uid=\(uuid):v=app:ts=0:hc=\(hitcount.rawValue)"
+        if (cdpSegments ?? "").isEmpty {
+            return "uid=\(uuid):v=app:ts=0:hc=\(hitcount.rawValue)"
+        } else {
+            return "uid=\(uuid):v=app:ts=0:hc=\(hitcount.rawValue):cdp_segments=\(String(describing: cdpSegments?.toBase64()))"
+        }
+        
     }
     
     /**
@@ -122,5 +127,18 @@ class FormatterUtils {
             formattedBasketString.append("'p\(basketItem.price)")
         }
         return formattedBasketString
+    }
+}
+
+extension String {
+    /// Encode a String to Base64
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+
+    /// Decode a String from Base64. Returns nil if unsuccessful.
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self) else { return nil }
+        return String(data: data, encoding: .utf8)
     }
 }

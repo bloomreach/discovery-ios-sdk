@@ -25,6 +25,9 @@ public class BrPixel {
     public var viewId: String? = nil
     // for turning on/off Pixel Validator logs and integration mode of Events manager
     public var debugMode: Bool = false
+    //RTS
+    public var cdpSegments: String? = nil
+    
     
     public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String) {
         self.accountId = accountId
@@ -34,7 +37,7 @@ public class BrPixel {
         self.pixelUrlByRegion = PixelRegion.NA.rawValue
     }
     
-    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil, viewId: String? = nil, debugMode: Bool = false) {
+    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil, viewId: String? = nil, debugMode: Bool = false, cdpSegments: String? = nil) {
         self.accountId = accountId
         self.uuid = uuid
         self.visitorType = visitorType
@@ -50,6 +53,7 @@ public class BrPixel {
         self.customerProfile = customerProfile
         self.viewId = viewId
         self.debugMode = debugMode
+        self.cdpSegments = cdpSegments
     }
 }
 
