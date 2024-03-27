@@ -9,6 +9,8 @@ import Foundation
 
 class RestClient {
     
+    private let SDK_VERSION = "1.0.12"
+    
     func validatePixel (postBody: [String: Any]) {
         guard let url = URL(string: "https://tools.bloomreach.com/pixel-validator/validatePixel") else {
             return
@@ -69,7 +71,7 @@ class RestClient {
         var request = URLRequest(url: urlRequest)
         print("url: \(String(describing: request.url))")
         request.httpMethod = "GET"
-        request.setValue("Bloomreach/1.0.11 iOS", forHTTPHeaderField:  "User-Agent")
+        request.setValue("Bloomreach/\(SDK_VERSION) iOS", forHTTPHeaderField:  "User-Agent")
         
         // URLSession.
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
