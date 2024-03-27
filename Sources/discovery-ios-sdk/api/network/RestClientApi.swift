@@ -9,6 +9,9 @@ import UIKit
 
 
 class RestClientApi {
+    
+    private let SDK_VERSION = "1.0.12"
+    
     /**
      Method to HTTP call for all Core API
      */
@@ -19,7 +22,7 @@ class RestClientApi {
         print("API URL: \(url.absoluteString)")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Bloomreach/1.0.11 iOS", forHTTPHeaderField:  "User-Agent")
+        request.setValue("Bloomreach/\(SDK_VERSION) iOS", forHTTPHeaderField:  "User-Agent")
         // URLSession.
         
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
@@ -75,7 +78,7 @@ class RestClientApi {
         print("API URL: \(url.absoluteString)")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Bloomreach/1.0.11 iOS", forHTTPHeaderField:  "User-Agent")
+        request.setValue("Bloomreach/\(SDK_VERSION) iOS", forHTTPHeaderField:  "User-Agent")
         
         // URLSession.
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in
@@ -131,7 +134,7 @@ class RestClientApi {
         print("API URL: \(url.absoluteString)")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Bloomreach/1.0.11 iOS", forHTTPHeaderField:  "User-Agent")
+        request.setValue("Bloomreach/\(SDK_VERSION) iOS", forHTTPHeaderField:  "User-Agent")
         
         //v2 API requires passing the auth-key as a request
         if let authKey = BrApi.shared.brApiRequest?.authKey {
@@ -193,7 +196,7 @@ class RestClientApi {
         // Set the URLRequest to POST and to the specified URL
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
-        urlRequest.setValue("Bloomreach/1.0.11 iOS", forHTTPHeaderField:  "User-Agent")
+        urlRequest.setValue("Bloomreach/\(SDK_VERSION) iOS", forHTTPHeaderField:  "User-Agent")
         
         //v2 API requires passing the auth-key as a request
         if let authKey = BrApi.shared.brApiRequest?.authKey {
