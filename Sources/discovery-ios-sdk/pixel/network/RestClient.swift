@@ -9,7 +9,7 @@ import Foundation
 
 class RestClient {
     
-    private let SDK_VERSION = "1.0.12"
+    private let SDK_VERSION = "1.0.13"
     
     func validatePixel (postBody: [String: Any]) {
         guard let url = URL(string: "https://tools.bloomreach.com/pixel-validator/validatePixel") else {
@@ -80,8 +80,10 @@ class RestClient {
                 switch httpResponse.statusCode {
                 case 200..<300:
                     print("submitPixel success \(httpResponse.statusCode)")
+                    PixelQueue.shared.dequeue()
                 default:
                     print("submitPixel failure \(httpResponse.statusCode)")
+                    PixelQueue.shared.dequeue()
                 }
             }
         }
