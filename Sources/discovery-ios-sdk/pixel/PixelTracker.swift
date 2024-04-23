@@ -705,4 +705,18 @@ public class PixelTracker {
             print("Pixel Tracker not initialised")
         }
     }
+    
+    /**
+     Method to return Cookie2 value
+     - returns String  value in 'uid={{UUID}}:v=app:ts=0:hc={{hitcount}}' format
+     */
+    public func getCookie() -> String? {
+        if (brPixel != nil) {
+            return FormatterUtils.shared.formatCookieValue(uuid: brPixel?.uuid ?? "",
+            hitcount: brPixel?.visitorType ?? VisitorType.NEW_USER)
+        } else {
+            print("Pixel Tracker not initialised")
+            return nil
+        }
+    }
 }
