@@ -36,7 +36,7 @@ class FormatterUtils {
         if (cdpSegments ?? "").isEmpty {
             return "uid=\(uuid):v=app:ts=0:hc=\(hitcount.rawValue)"
         } else {
-            return "uid=\(uuid):v=app:ts=0:hc=\(hitcount.rawValue):cdp_segments=\(String(describing: cdpSegments?.toBase64()))"
+            return "uid=\(uuid):v=app:ts=0:hc=\(hitcount.rawValue):cdp_segments=\(cdpSegments!.toBase64())"
         }
         
     }
