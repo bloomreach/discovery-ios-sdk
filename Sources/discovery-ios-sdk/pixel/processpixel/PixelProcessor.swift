@@ -68,7 +68,12 @@ class PixelProcessor: QueueChanged  {
         
         queryMap["cookie2"] = FormatterUtils.shared.formatCookieValue(
             uuid: PixelTracker.shared.brPixel?.uuid ?? "",
-            hitcount: PixelTracker.shared.brPixel?.visitorType ?? VisitorType.NEW_USER)
+            hitcount: PixelTracker.shared.brPixel?.visitorType ?? VisitorType.NEW_USER,
+            cdpSegments: PixelTracker.shared.brPixel?.cdpSegments ?? "")
+        
+        if (!(PixelTracker.shared.brPixel?.cdpSegments ?? "").isEmpty) {
+            queryMap["cdp_segments"] = PixelTracker.shared.brPixel!.cdpSegments
+        }
         
         queryMap["rand"] = FormatterUtils.shared.generateRand()
         
@@ -135,7 +140,6 @@ class PixelProcessor: QueueChanged  {
         if (PixelTracker.shared.brPixel!.debugMode) {
             queryMap["debug"] = String(PixelTracker.shared.brPixel!.debugMode)
         }
-        
         
         return queryMap
     }
@@ -225,7 +229,13 @@ class PixelProcessor: QueueChanged  {
         
         queryMap["cookie2"] = FormatterUtils.shared.formatCookieValue(
             uuid: PixelTracker.shared.brPixel?.uuid ?? "",
-            hitcount: PixelTracker.shared.brPixel?.visitorType ?? VisitorType.NEW_USER)
+            hitcount: PixelTracker.shared.brPixel?.visitorType ?? VisitorType.NEW_USER,
+            cdpSegments: PixelTracker.shared.brPixel?.cdpSegments ?? ""
+        )
+        
+        if (!(PixelTracker.shared.brPixel!.cdpSegments ?? "").isEmpty) {
+            queryMap["cdp_segments"] = PixelTracker.shared.brPixel!.cdpSegments
+        }
         
         queryMap["rand"] = FormatterUtils.shared.generateRand()
         

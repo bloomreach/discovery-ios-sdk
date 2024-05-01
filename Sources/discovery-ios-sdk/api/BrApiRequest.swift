@@ -16,6 +16,8 @@ public class BrApiRequest {
     var environment: Env = Env.STAGE
     var authKey: String? = nil
     var userId: String? = nil
+//    RTS
+    var cdpSegments: String? = nil
     
     public init(accountId: String, uuid: String, visitorType: VisitorType, domainKey: String) {
         self.accountId = accountId
@@ -32,7 +34,7 @@ public class BrApiRequest {
         self.environment = environment
     }
     
-    public init(accountId: String, uuid: String, visitorType: VisitorType, domainKey: String, environment: Env, authKey: String? = nil, userId: String? = nil) {
+    public init(accountId: String, uuid: String, visitorType: VisitorType, domainKey: String, environment: Env, authKey: String? = nil, userId: String? = nil, cdpSegments: String? = nil) {
         self.accountId = accountId
         self.uuid = uuid
         self.visitorType = visitorType
@@ -40,6 +42,7 @@ public class BrApiRequest {
         self.environment = environment
         self.authKey = authKey
         self.userId = userId
+        self.cdpSegments = cdpSegments
     }
 }
 
