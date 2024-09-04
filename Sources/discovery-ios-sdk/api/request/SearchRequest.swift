@@ -384,4 +384,121 @@ public class SearchRequest<T>: RequestMap<T> {
         return set(key: "facet.version", value: value)
     }
     
+    /**
+     Method to set Hard Boost
+     - parameters:
+     - value: Value for Hard Boost eg: pid:“pid1” OR “pid2”
+     - returns A reference to the current Request object
+     */
+    public func hardBoost(value: String) -> T {
+        return set(key: "boost", value: value)
+    }
+    
+    /**
+     Method to set Hard Bury
+     - parameters:
+     - value: Value for Hard Bury eg: pid:“pid1” OR “pid2”
+     - returns A reference to the current Request object
+     */
+    public func hardBury(value: String) -> T {
+        return set(key: "bury", value: value)
+    }
+    
+    /**
+     Method to set LOCK POSITION
+     - parameters:
+     - value: Value for lock eg: pid:”pid1”#3 OR ”pid2”#10
+     - returns A reference to the current Request object
+     */
+    public func lock(value: String) -> T {
+        return set(key: "lock", value: value)
+    }
+    
+    /**
+     Method to set Add To Recall
+     - parameters:
+     - value: Value for add_to_recall eg: pid:“pid1” OR “pid2”
+     - returns A reference to the current Request object
+     */
+    public func addToRecall(value: String) -> T {
+        return set(key: "add_to_recall", value: value)
+    }
+    
+    /**
+     Method to set Soft Boost
+     - parameters:
+     - value: Value for soft_boost eg: ”brand”:”Brand1” OR “Brand2”
+     - returns A reference to the current Request object
+     */
+    public func softBoost(value: String) -> T {
+        return set(key: "soft_boost", value: value)
+    }
+    
+    /**
+     Method to set Soft Bury
+     - parameters:
+     - value: Value for soft_bury eg: ”brand”:”Brand1” OR “Brand2”
+     - returns A reference to the current Request object
+     */
+    public func softBury(value: String) -> T {
+        return set(key: "soft_bury", value: value)
+    }
+    
+    /**
+     Method to set include
+     - parameters:
+     - value: Value for include eg: ”brand”:”Brand1” OR “Brand2”
+     - returns A reference to the current Request object
+     */
+    public func include(value: String) -> T {
+        return set(key: "include", value: value)
+    }
+    
+    /**
+     Method to set exclude
+     - parameters:
+     - value: Value for exclude eg: ”brand”:”Brand1” OR “Brand2”
+     - returns A reference to the current Request object
+     */
+    public func exclude(value: String) -> T {
+        return set(key: "exclude", value: value)
+    }
+    
+    /**
+     Method to set Loomi Search+ API Controls
+     - parameters:
+     - value: Value for ENUM of type SearchMode. HYBRID for Loomi Search+ mode or STANDARD for Keyword search mode
+     - returns A reference to the current Request object
+     */
+    public func searchMode(value: SearchMode) -> T {
+        return set(key: "query.search_mode", value: value.rawValue)
+    }
+    
+    /**
+     Method to set Vector Search Temperature
+     - parameters:
+     - value: Value for ENUM of type VectorSearchTemperature. STANDARD For a wider recall or HIGH For a compact and very precise recall
+     - returns A reference to the current Request object
+     */
+    public func vectorSearchTemperature(value: VectorSearchTemperature) -> T {
+        return set(key: "vector_search.temperature", value: value.rawValue)
+    }
+}
+
+/**
+ SearchMode TYPE ENUM to specify which type Search Mode Loomi Search or Keyword based search
+ This gets added as API parameter to the request
+ */
+public enum SearchMode : String {
+    case HYBRID = "hybrid" //Apply Loomi Search+ mode
+    case STANDARD = "standard" //Apply Keyword search mode
+}
+
+/**
+ API Controls for adjusting Vector search temperature values for one or all queries.
+ This gets added as API parameter to the request
+ */
+public enum VectorSearchTemperature : String {
+    case HIGH = "high"   //  For a compact and very precise recall
+    case STANDARD = "standard"    //For a wider recall,
 }
