@@ -384,4 +384,84 @@ public class SearchRequest<T>: RequestMap<T> {
         return set(key: "facet.version", value: value)
     }
     
+    /**
+     Method to set Hard Boost
+     - parameters:
+     - value: Value for Hard Boost eg: pid:“pid1” OR “pid2”
+     - returns A reference to the current Request object
+     */
+    public func hardBoost(value: String) -> T {
+        return set(key: "boost", value: value)
+    }
+    
+    /**
+     Method to set Hard Bury
+     - parameters:
+     - value: Value for Hard Bury eg: pid:“pid1” OR “pid2”
+     - returns A reference to the current Request object
+     */
+    public func hardBury(value: String) -> T {
+        return set(key: "bury", value: value)
+    }
+    
+    /**
+     Method to set LOCK POSITION
+     - parameters:
+     - value: Value for lock eg: pid:”pid1”#3 OR ”pid2”#10
+     - returns A reference to the current Request object
+     */
+    public func lock(value: String) -> T {
+        return set(key: "lock", value: value)
+    }
+    
+    /**
+     Method to set Add To Recall
+     - parameters:
+     - value: Value for add_to_recall eg: pid:“pid1” OR “pid2”
+     - returns A reference to the current Request object
+     */
+    public func addToRecall(value: String) -> T {
+        return set(key: "add_to_recall", value: value)
+    }
+    
+    /**
+     Method to set Soft Boost
+     - parameters:
+     - value: Value for soft_boost eg: ”brand”:”Brand1” OR “Brand2”
+     - returns A reference to the current Request object
+     */
+    public func softBoost(value: String) -> T {
+        return set(key: "soft_boost", value: value)
+    }
+    
+    /**
+     Method to set Soft Bury
+     - parameters:
+     - value: Value for soft_bury eg: ”brand”:”Brand1” OR “Brand2”
+     - returns A reference to the current Request object
+     */
+    public func softBury(value: String) -> T {
+        return set(key: "soft_bury", value: value)
+    }
+    
+    /**
+     Method to set include
+     - parameters:
+     - value: Value for include eg: ”brand”:”Brand1” OR “Brand2”
+     - returns A reference to the current Request object
+     */
+    public func include(value: String) -> T {
+        return set(key: "include", value: value)
+    }
+    
+    /**
+     Method to set exclude
+     - parameters:
+     - value: Value for exclude eg: ”brand”:”Brand1” OR “Brand2”
+     - returns A reference to the current Request object
+     */
+    public func exclude(value: String) -> T {
+        return set(key: "exclude", value: value)
+    }
+    
 }
