@@ -464,4 +464,41 @@ public class SearchRequest<T>: RequestMap<T> {
         return set(key: "exclude", value: value)
     }
     
+    /**
+     Method to set Loomi Search+ API Controls
+     - parameters:
+     - value: Value for ENUM of type SearchMode. HYBRID for Loomi Search+ mode or STANDARD for Keyword search mode
+     - returns A reference to the current Request object
+     */
+    public func searchMode(value: SearchMode) -> T {
+        return set(key: "query.search_mode", value: value.rawValue)
+    }
+    
+    /**
+     Method to set Vector Search Temperature
+     - parameters:
+     - value: Value for ENUM of type VectorSearchTemperature. STANDARD For a wider recall or HIGH For a compact and very precise recall
+     - returns A reference to the current Request object
+     */
+    public func vectorSearchTemperature(value: VectorSearchTemperature) -> T {
+        return set(key: "vector_search.temperature", value: value.rawValue)
+    }
+}
+
+/**
+ SearchMode TYPE ENUM to specify which type Search Mode Loomi Search or Keyword based search
+ This gets added as API parameter to the request
+ */
+public enum SearchMode : String {
+    case HYBRID = "hybrid" //Apply Loomi Search+ mode
+    case STANDARD = "standard" //Apply Keyword search mode
+}
+
+/**
+ API Controls for adjusting Vector search temperature values for one or all queries.
+ This gets added as API parameter to the request
+ */
+public enum VectorSearchTemperature : String {
+    case HIGH = "high"   //  For a compact and very precise recall
+    case STANDARD = "standard"    //For a wider recall,
 }
