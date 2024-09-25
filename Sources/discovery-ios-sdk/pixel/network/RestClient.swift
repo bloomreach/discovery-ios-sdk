@@ -79,10 +79,8 @@ class RestClient {
                 switch httpResponse.statusCode {
                 case 200..<300:
                     print("submitPixel success \(httpResponse.statusCode)")
-                    PixelQueue.shared.dequeue()
                 default:
                     print("submitPixel failure \(httpResponse.statusCode)")
-                    PixelQueue.shared.dequeue()
                 }
             }
         }

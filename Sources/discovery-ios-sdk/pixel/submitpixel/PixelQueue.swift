@@ -26,8 +26,9 @@ class PixelQueue {
         guard !elements.isEmpty else {
             return nil
         }
-        return elements.removeFirst()
-        //          delegate?.elementRemoved()
+        elements.removeFirst()
+        delegate?.elementRemoved()
+        return nil
     }
     
     func head() -> [String:String?]? {
