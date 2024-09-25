@@ -24,6 +24,7 @@ class PixelProcessor: QueueChanged  {
         let item = PixelQueue.shared.head()
         if(item != nil) {
             restClient.submitPixel(parameters: item!)
+            PixelQueue.shared.dequeue()
         }
     }
     
