@@ -137,6 +137,10 @@ class PixelProcessor: QueueChanged  {
             queryMap["debug"] = String(PixelTracker.shared.brPixel!.debugMode)
         }
         
+        // abtest  present
+        if (!(PixelTracker.shared.brPixel!.abTest ?? "").isEmpty) {
+            queryMap["abtest"] = PixelTracker.shared.brPixel!.abTest
+        }
         
         return queryMap
     }
@@ -291,6 +295,11 @@ class PixelProcessor: QueueChanged  {
         // Event Manager Pixel integration mode only when in DEBUG mode
         if (PixelTracker.shared.brPixel!.debugMode) {
             queryMap["debug"] = String(PixelTracker.shared.brPixel!.debugMode)
+        }
+        
+        // abtest  present
+        if (!(PixelTracker.shared.brPixel!.abTest ?? "").isEmpty) {
+            queryMap["abtest"] = PixelTracker.shared.brPixel!.abTest
         }
         
         // add the processed Map to Queue for further process
