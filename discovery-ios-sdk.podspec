@@ -61,6 +61,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.platform     = :ios, "13.0"
+  spec.swift_versions = ['4.2.0', '5.0', '5.6.1', '5.7', '5.8', '5.8.1', '5.9', '5.10']
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -79,7 +80,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = ["Sources/discovery-ios-sdk/*", "Sources/discovery-ios-sdk/api/*", "Sources/discovery-ios-sdk/pixel/*" , "Sources/discovery-ios-sdk/**/*.swift"] 
+  spec.source_files  = ["Sources/discovery-ios-sdk/*", "Sources/discovery-ios-sdk/api/*", "Sources/discovery-ios-sdk/pixel/*" , "Sources/discovery-ios-sdk/**/*.swift"]
   spec.resource_bundles = {'discovery-ios-sdk' => ['Sources/discovery-ios-sdk/PrivacyInfo.xcprivacy']}
 
   #spec.exclude_files = "Classes/Exclude"
