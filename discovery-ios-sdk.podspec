@@ -79,7 +79,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = ["Sources/discovery-ios-sdk/*", "Sources/discovery-ios-sdk/api/*", "Sources/discovery-ios-sdk/pixel/*"]
+  spec.source_files  = ["Sources/discovery-ios-sdk/*", "Sources/discovery-ios-sdk/api/*", "Sources/discovery-ios-sdk/pixel/*" , "Sources/discovery-ios-sdk/**/*.swift"] 
   spec.resource_bundles = {'discovery-ios-sdk' => ['Sources/discovery-ios-sdk/PrivacyInfo.xcprivacy']}
 
   #spec.exclude_files = "Classes/Exclude"
