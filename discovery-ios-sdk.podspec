@@ -16,8 +16,8 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "discovery-ios-sdk"
-  spec.version      = "0.0.2"
-  spec.summary      = "Discovery iOS SDK is used for analytics"
+  spec.version      = "1.0.18"
+  spec.summary      = "Discovery iOS SDK"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
-  This library allows you to interact with analytics.
+  SDK supports following integrations: Pixel Integration, Search and Category APIs, Recommendations and Pathways APIs
                       DESC
 
 
@@ -69,7 +69,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/bloomreach/discovery-ios-sdk", :branch => "cocoapods" }
+  spec.source       = { :git => "https://github.com/bloomreach/discovery-ios-sdk", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
