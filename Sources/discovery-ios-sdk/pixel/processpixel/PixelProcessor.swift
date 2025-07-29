@@ -241,7 +241,7 @@ class PixelProcessor: QueueChanged  {
         queryMap["url"] = FormatterUtils.shared.formatUrl(
             baseurl: PixelTracker.shared.brPixel!.baseUrl,
             pType: (queryMap["ptype"] ?? "") ?? "",
-            title: (queryMap["title"] ?? "") ?? ""
+            title: (queryMap["title"] ?? "") ?? "",
             brPSuggQ: (queryMap["brPSuggQ"] ?? nil) ?? nil
         )
         
