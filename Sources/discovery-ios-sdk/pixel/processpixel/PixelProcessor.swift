@@ -86,8 +86,8 @@ class PixelProcessor: QueueChanged  {
         queryMap["url"] = FormatterUtils.shared.formatUrl(
             baseurl: PixelTracker.shared.brPixel!.baseUrl,
             pType: pixelObject.pType.rawValue,
-            title: pixelObject.title
-            
+            title: pixelObject.title,
+            brPSuggQ: pixelObject.brPSuggQ
         )
         
         queryMap["ref"] = pixelObject.ref
@@ -242,7 +242,7 @@ class PixelProcessor: QueueChanged  {
             baseurl: PixelTracker.shared.brPixel!.baseUrl,
             pType: (queryMap["ptype"] ?? "") ?? "",
             title: (queryMap["title"] ?? "") ?? ""
-            
+            brPSuggQ: (queryMap["brPSuggQ"] ?? nil) ?? nil
         )
         
         // customer user id
