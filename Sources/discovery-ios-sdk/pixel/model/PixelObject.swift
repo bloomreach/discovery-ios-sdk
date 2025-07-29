@@ -34,6 +34,8 @@ final class PixelObject {
     var catId:String? = nil
     var cat:String? = nil
     
+    var brPSuggQ:String? = nil
+    
     init(type: PixelType, pType: PageType, ref: String, title: String) {
         self.type = type
         self.pType = pType
@@ -49,6 +51,17 @@ final class PixelObject {
         self.prodId = prodId
         self.prodName = prodName
         self.prodSku = prodSku
+    }
+    
+    init(type: PixelType, pType: PageType, ref: String, title: String, prodId: String, prodName: String, prodSku: String?, brPSuggQ: String?) {
+        self.type = type
+        self.pType = pType
+        self.title = title
+        self.ref = ref
+        self.prodId = prodId
+        self.prodName = prodName
+        self.prodSku = prodSku
+        self.brPSuggQ = brPSuggQ
     }
     
     init(type: PixelType, pType: PageType, group: GroupType, eType: String, ref: String, title: String, prodId: String, prodName: String, prodSku: String?) {
