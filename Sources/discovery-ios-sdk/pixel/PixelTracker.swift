@@ -125,19 +125,21 @@ public class PixelTracker {
      - prodId: Screen name of the app view.
      - prodName: Screen name of the app view.
      - sku: Screen name of the app view.
+     - brPSuggQ: Value of User clicked a product suggest. If its not there, leave this nil.
      */
     public func productPageViewPixel(
         ref: String,
         title: String,
         prodId: String,
         prodName: String,
-        sku: String? = nil
+        sku: String? = nil,
+        brPSuggQ: String? = nil
     ) {
         if (brPixel != nil) {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.PAGEVIEW, pType: PageType.PRODUCT_PAGE,
-                ref: ref, title: title, prodId: prodId, prodName: prodName, prodSku: sku
+                ref: ref, title: title, prodId: prodId, prodName: prodName, prodSku: sku, brPSuggQ: brPSuggQ
             )
             
             // send pixel for further processing
