@@ -595,7 +595,7 @@ public class PixelTracker {
             params["title"] = title
             params["type"] = PixelType.EVENT.rawValue
             params["etype"] = eType
-            params["ptype"] = PageType.EVENT
+            params["ptype"] = PageType.EVENT.rawValue
             params["group"] = group.rawValue
             pixelProcessor.processPixel(queryMap: &params)
             
