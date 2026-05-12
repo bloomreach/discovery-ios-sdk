@@ -108,6 +108,8 @@ public enum PageType: String {
     case CONVERSION = "conversion"
     //Any page types that are not one of the above need to be classified as
     case OTHER_PAGE = "other"
+    //For all types for Event pixels, the value of ptype should always be event.
+    case EVENT = "event"
 }
 
 public enum GroupType: String {

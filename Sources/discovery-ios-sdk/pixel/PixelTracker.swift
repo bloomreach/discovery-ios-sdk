@@ -343,7 +343,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
-                pType: PageType.PRODUCT_PAGE,
+                pType: PageType.EVENT,
                 group: GroupType.CART,
                 eType: "click-add",
                 ref: ref,
@@ -381,7 +381,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
-                pType: PageType.SEARCH_PAGE,
+                pType: PageType.EVENT,
                 group: GroupType.SUGGEST,
                 eType: "submit",
                 ref: ref,
@@ -424,7 +424,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
-                pType: PageType.PRODUCT_PAGE,
+                pType: PageType.EVENT,
                 group: GroupType.SUGGEST,
                 eType: "submit",
                 ref: ref,
@@ -465,7 +465,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
-                pType: PageType.SEARCH_PAGE,
+                pType: PageType.EVENT,
                 group: GroupType.SUGGEST,
                 eType: "click",
                 ref: ref,
@@ -511,7 +511,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
-                pType: PageType.PRODUCT_PAGE,
+                pType: PageType.EVENT,
                 group: GroupType.SUGGEST,
                 eType: "click",
                 ref: ref,
@@ -553,7 +553,7 @@ public class PixelTracker {
             // create pixel object based ob input
             let pixelObject = PixelObject(
                 type: PixelType.EVENT,
-                pType: PageType.PRODUCT_PAGE,
+                pType: PageType.EVENT,
                 group: GroupType.PRODUCT,
                 eType: "quickview",
                 ref: ref,
@@ -595,7 +595,7 @@ public class PixelTracker {
             params["title"] = title
             params["type"] = PixelType.EVENT.rawValue
             params["etype"] = eType
-            params["ptype"] = pType.rawValue
+            params["ptype"] = PageType.EVENT.rawValue
             params["group"] = group.rawValue
             pixelProcessor.processPixel(queryMap: &params)
             
