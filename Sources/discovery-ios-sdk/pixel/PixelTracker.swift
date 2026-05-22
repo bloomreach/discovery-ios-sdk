@@ -257,8 +257,9 @@ public class PixelTracker {
      - ref: Synthetic URL from referrer screen
      - title: Screen name of the app view.
      - searchTerm: The value of the search query describing the page.
+     - catalogs: List of CatalogItem that are shown in the page.
      */
-    public func searchResultPageViewPixel(ref: String, title: String, searchTerm: String) {
+    public func searchResultPageViewPixel(ref: String, title: String, searchTerm: String, catalogs: [CatalogItem]? = nil) {
         if (brPixel != nil) {
             // create pixel object based ob input
             let pixelObject = PixelObject(
@@ -268,6 +269,7 @@ public class PixelTracker {
                 title: title
             )
             pixelObject.searchTerm = searchTerm
+            pixelObject.catalogs = catalogs
             
             // send pixel for further processing
             pixelProcessor.processPixel(pixelObject: pixelObject)
