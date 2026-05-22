@@ -11,7 +11,7 @@ public class CatalogItem {
     let name: String
     let viewIds: [String]?
     
-    public init(name: String, viewIds: [String]? = nil) {
+    public init(name: String, viewIds: [String]?) {
         self.name = name
         self.viewIds = viewIds
     }
