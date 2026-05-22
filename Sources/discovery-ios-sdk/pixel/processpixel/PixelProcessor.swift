@@ -164,7 +164,7 @@ class PixelProcessor: QueueChanged  {
             
         case PageType.SEARCH_PAGE:
             if (pixelObject.catalogs != nil) {
-                return pageViewPixelFormatter.prepareContentPageViewQuery(pixelObject: pixelObject, queryMap: &queryMap)
+                return pageViewPixelFormatter.prepareContentSearchPageViewQuery(pixelObject: pixelObject, queryMap: &queryMap)
             } else {
                 return pageViewPixelFormatter.prepareSearchPageViewQuery(
                     pixelObject: pixelObject,
