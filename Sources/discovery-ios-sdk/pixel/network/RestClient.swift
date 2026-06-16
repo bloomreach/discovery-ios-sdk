@@ -67,7 +67,9 @@ class RestClient {
         guard let urlRequest = components.url else { return }
         
         var request = URLRequest(url: urlRequest)
-        print("url: \(String(describing: request.url))")
+        if (PixelTracker.shared.brPixel!.debugMode) {
+            print("url: \(String(describing: request.url))")
+        }
         request.httpMethod = "GET"
         request.setValue(FormatterUtils.shared.getUserAgent(), forHTTPHeaderField:  "User-Agent")
 
@@ -78,9 +80,13 @@ class RestClient {
             if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
                 case 200..<300:
-                    print("submitPixel success \(httpResponse.statusCode)")
+                    if (PixelTracker.shared.brPixel!.debugMode) {
+                        print("submitPixel success \(httpResponse.statusCode)")
+                    }
                 default:
-                    print("submitPixel failure \(httpResponse.statusCode)")
+                    if (PixelTracker.shared.brPixel!.debugMode) {
+                        print("submitPixel failure \(httpResponse.statusCode)")
+                    }
                 }
             }
         }
