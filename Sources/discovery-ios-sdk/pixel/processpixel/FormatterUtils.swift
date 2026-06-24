@@ -136,7 +136,7 @@ class FormatterUtils {
      - returns Formatted string for user agent
      */
     internal func getUserAgent() -> String {
-        let SDK_VERSION = "Bloomreach/1.0.21 iOS"
+        let SDK_VERSION = "Bloomreach/1.0.22 iOS"
         let device = UIDevice.current.name
         let systemName = UIDevice.current.systemName
         let systemVersion = UIDevice.current.systemVersion

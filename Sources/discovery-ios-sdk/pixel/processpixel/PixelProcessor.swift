@@ -83,12 +83,20 @@ class PixelProcessor: QueueChanged  {
         
         queryMap["title"] =  pixelObject.title
         
-        queryMap["url"] = FormatterUtils.shared.formatUrl(
-            baseurl: PixelTracker.shared.brPixel!.baseUrl,
-            pType: pixelObject.pType.rawValue,
-            title: pixelObject.title,
-            brPSuggQ: pixelObject.brPSuggQ
-        )
+        // For EVENT pixels, use the existing currentUrl
+        // For PAGEVIEW pixels, generate new URL and update currentUrl
+        if (pixelObject.type == PixelType.EVENT) {
+            queryMap["url"] = PixelTracker.shared.currentUrl
+        } else {
+            let url = FormatterUtils.shared.formatUrl(
+                baseurl: PixelTracker.shared.brPixel!.baseUrl,
+                pType: pixelObject.pType.rawValue,
+                title: pixelObject.title,
+                brPSuggQ: pixelObject.brPSuggQ
+            )
+            queryMap["url"] = url
+            PixelTracker.shared.currentUrl = url
+        }
         
         queryMap["ref"] = pixelObject.ref
         
@@ -238,12 +246,23 @@ class PixelProcessor: QueueChanged  {
             queryMap["test_data"] = String(PixelTracker.shared.brPixel!.testData)
         }
         
-        queryMap["url"] = FormatterUtils.shared.formatUrl(
-            baseurl: PixelTracker.shared.brPixel!.baseUrl,
-            pType: (queryMap["ptype"] ?? "") ?? "",
-            title: (queryMap["title"] ?? "") ?? "",
-            brPSuggQ: (queryMap["brPSuggQ"] ?? nil) ?? nil
-        )
+        // For widget pixels (which use this method), determine if it's an event type
+        let isEvent = queryMap["type"] as? String == PixelType.EVENT.rawValue
+        
+        if (isEvent) {
+            // Use existing currentUrl for events
+            queryMap["url"] = PixelTracker.shared.currentUrl
+        } else {
+            // Generate new URL for page views
+            let url = FormatterUtils.shared.formatUrl(
+                baseurl: PixelTracker.shared.brPixel!.baseUrl,
+                pType: (queryMap["ptype"] ?? "") ?? "",
+                title: (queryMap["title"] ?? "") ?? "",
+                brPSuggQ: (queryMap["brPSuggQ"] ?? nil) ?? nil
+            )
+            queryMap["url"] = url
+            PixelTracker.shared.currentUrl = url
+        }
         
         // customer user id
         if (!(PixelTracker.shared.brPixel!.userId ?? "").isEmpty) {
