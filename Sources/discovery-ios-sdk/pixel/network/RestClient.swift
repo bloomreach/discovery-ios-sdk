@@ -69,7 +69,8 @@ class RestClient {
         var request = URLRequest(url: urlRequest)
         print("url: \(String(describing: request.url))")
         request.httpMethod = "GET"
-        request.setValue("Bloomreach/1.0.11 iOS", forHTTPHeaderField:  "User-Agent")
+        request.setValue(FormatterUtils.shared.getUserAgent(), forHTTPHeaderField:  "User-Agent")
+
         
         // URLSession.
         let task = URLSession.shared.dataTask(with: request) { _data, response, error in

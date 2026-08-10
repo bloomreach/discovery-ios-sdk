@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FormatterUtils {
     
@@ -47,10 +48,16 @@ class FormatterUtils {
      - baseurl: Base Url for the merchant provided bt Bloomreach
      - pType: Page classification type
      - title: Title of the screen
+     - brPSuggQ: Value of User clicked a product suggest. If its not there, leave this nil.
      - returns String value in 'http://merchantname.app/ptype/title' format
      */
-    func formatUrl(baseurl: String, pType: String, title: String) -> String {
+    func formatUrl(baseurl: String, pType: String, title: String, brPSuggQ: String? = nil) -> String {
         // convert in format http://merchantname.app/ptype/title
+        if(pType == PageType.PRODUCT_PAGE.rawValue && brPSuggQ != nil) {
+            // returns String value in 'http://merchantname.app/ptype/title?_br_psugg_q=abc' format
+            return "\(baseurl)\(pType)/\(title)?_br_psugg_q=\(brPSuggQ ?? "")"
+        }
+        
         return "\(baseurl)\(pType)/\(title)"
     }
     
@@ -127,6 +134,19 @@ class FormatterUtils {
             formattedBasketString.append("'p\(basketItem.price)")
         }
         return formattedBasketString
+    }
+    
+    /**
+     Internal Method to format user agent.
+     - returns Formatted string for user agent
+     */
+    internal func getUserAgent() -> String {
+        let SDK_VERSION = "Bloomreach/1.0.22 iOS"
+        let device = UIDevice.current.name
+        let systemName = UIDevice.current.systemName
+        let systemVersion = UIDevice.current.systemVersion
+        //returns iPhone 15; iOS 17.4; Bloomreach/1.0.15 iOS
+        return "\(device); \(systemName) \(systemVersion); \(SDK_VERSION)"
     }
 }
 

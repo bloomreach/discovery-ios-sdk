@@ -24,6 +24,7 @@ class PixelProcessor: QueueChanged  {
         let item = PixelQueue.shared.head()
         if(item != nil) {
             restClient.submitPixel(parameters: item!)
+            PixelQueue.shared.dequeue()
         }
     }
     
@@ -87,12 +88,20 @@ class PixelProcessor: QueueChanged  {
         
         queryMap["title"] =  pixelObject.title
         
-        queryMap["url"] = FormatterUtils.shared.formatUrl(
-            baseurl: PixelTracker.shared.brPixel!.baseUrl,
-            pType: pixelObject.pType.rawValue,
-            title: pixelObject.title
-            
-        )
+        // For EVENT pixels, use the existing currentUrl
+        // For PAGEVIEW pixels, generate new URL and update currentUrl
+        if (pixelObject.type == PixelType.EVENT) {
+            queryMap["url"] = PixelTracker.shared.currentUrl
+        } else {
+            let url = FormatterUtils.shared.formatUrl(
+                baseurl: PixelTracker.shared.brPixel!.baseUrl,
+                pType: pixelObject.pType.rawValue,
+                title: pixelObject.title,
+                brPSuggQ: pixelObject.brPSuggQ
+            )
+            queryMap["url"] = url
+            PixelTracker.shared.currentUrl = url
+        }
         
         queryMap["ref"] = pixelObject.ref
         
@@ -141,6 +150,11 @@ class PixelProcessor: QueueChanged  {
             queryMap["debug"] = String(PixelTracker.shared.brPixel!.debugMode)
         }
         
+        // abtest  present
+        if (!(PixelTracker.shared.brPixel!.abTest ?? "").isEmpty) {
+            queryMap["abtest"] = PixelTracker.shared.brPixel!.abTest
+        }
+        
         return queryMap
     }
     
@@ -163,9 +177,9 @@ class PixelProcessor: QueueChanged  {
             
         case PageType.SEARCH_PAGE:
             if (pixelObject.catalogs != nil) {
-                return pageViewPixelFormatter.prepareSearchPageViewQuery(pixelObject: pixelObject, queryMap: &queryMap)
+                return pageViewPixelFormatter.prepareContentSearchPageViewQuery(pixelObject: pixelObject, queryMap: &queryMap)
             } else {
-                return pageViewPixelFormatter.prepareContentSearchPageViewQuery(
+                return pageViewPixelFormatter.prepareSearchPageViewQuery(
                     pixelObject: pixelObject,
                     queryMap: &queryMap
                 )
@@ -243,12 +257,23 @@ class PixelProcessor: QueueChanged  {
             queryMap["test_data"] = String(PixelTracker.shared.brPixel!.testData)
         }
         
-        queryMap["url"] = FormatterUtils.shared.formatUrl(
-            baseurl: PixelTracker.shared.brPixel!.baseUrl,
-            pType: (queryMap["ptype"] ?? "") ?? "",
-            title: (queryMap["title"] ?? "") ?? ""
-            
-        )
+        // For widget pixels (which use this method), determine if it's an event type
+        let isEvent = queryMap["type"] as? String == PixelType.EVENT.rawValue
+        
+        if (isEvent) {
+            // Use existing currentUrl for events
+            queryMap["url"] = PixelTracker.shared.currentUrl
+        } else {
+            // Generate new URL for page views
+            let url = FormatterUtils.shared.formatUrl(
+                baseurl: PixelTracker.shared.brPixel!.baseUrl,
+                pType: (queryMap["ptype"] ?? "") ?? "",
+                title: (queryMap["title"] ?? "") ?? "",
+                brPSuggQ: (queryMap["brPSuggQ"] ?? nil) ?? nil
+            )
+            queryMap["url"] = url
+            PixelTracker.shared.currentUrl = url
+        }
         
         // customer user id
         if (!(PixelTracker.shared.brPixel!.userId ?? "").isEmpty) {
@@ -300,6 +325,11 @@ class PixelProcessor: QueueChanged  {
         // Event Manager Pixel integration mode only when in DEBUG mode
         if (PixelTracker.shared.brPixel!.debugMode) {
             queryMap["debug"] = String(PixelTracker.shared.brPixel!.debugMode)
+        }
+        
+        // abtest  present
+        if (!(PixelTracker.shared.brPixel!.abTest ?? "").isEmpty) {
+            queryMap["abtest"] = PixelTracker.shared.brPixel!.abTest
         }
         
         // add the processed Map to Queue for further process

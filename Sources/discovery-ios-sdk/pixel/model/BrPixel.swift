@@ -28,6 +28,8 @@ public class BrPixel {
     //RTS
     public var cdpSegments: String? = nil
     
+    //abtest
+    public var abTest: String? = nil
     
     public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String) {
         self.accountId = accountId
@@ -37,7 +39,7 @@ public class BrPixel {
         self.pixelUrlByRegion = PixelRegion.NA.rawValue
     }
     
-    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil, viewId: String? = nil, debugMode: Bool = false, cdpSegments: String? = nil) {
+    public init(accountId: String, uuid: String, visitorType: VisitorType, baseUrl: String, domainKey: String? = nil, userId: String? = nil, testData:Bool = false, currency: String? = nil, pixelUrlByRegion: String = PixelRegion.NA.rawValue, customerTier: String? = nil, customerCountry:String? = nil, customerGeo: String? = nil, customerProfile: String? = nil, viewId: String? = nil, debugMode: Bool = false, abTest: String? = nil, cdpSegments: String? = nil) {
         self.accountId = accountId
         self.uuid = uuid
         self.visitorType = visitorType
@@ -54,6 +56,7 @@ public class BrPixel {
         self.viewId = viewId
         self.debugMode = debugMode
         self.cdpSegments = cdpSegments
+        self.abTest = abTest
     }
 }
 

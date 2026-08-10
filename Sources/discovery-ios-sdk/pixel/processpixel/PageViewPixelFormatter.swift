@@ -83,7 +83,7 @@ class PageViewPixelFormatter {
      */
     func prepareCategoryPageViewQuery(pixelObject: PixelObject,  queryMap: inout [String: String?]) -> [String: String?] {
         queryMap["cat"] = pixelObject.cat
-        queryMap["catId"] = pixelObject.catId
+        queryMap["cat_id"] = pixelObject.catId
         return queryMap
     }
     
