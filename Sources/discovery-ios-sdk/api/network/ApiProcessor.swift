@@ -183,7 +183,13 @@ class ApiProcessor {
         
         queryMap["_br_uid_2"] = FormatterUtils.shared.formatCookieValue(
             uuid: BrApi.shared.brApiRequest?.uuid ?? "",
-            hitcount: BrApi.shared.brApiRequest?.visitorType ?? VisitorType.NEW_USER)
+            hitcount: BrApi.shared.brApiRequest?.visitorType ?? VisitorType.NEW_USER,
+            cdpSegments: BrApi.shared.brApiRequest?.cdpSegments ?? "")
+        
+        //RTS
+        if (!(BrApi.shared.brApiRequest?.cdpSegments ?? "").isEmpty) {
+            queryMap["cdp_segments"] = BrApi.shared.brApiRequest?.cdpSegments
+        }
         
         queryMap["request_id"] = FormatterUtils.shared.generateRand()
         
