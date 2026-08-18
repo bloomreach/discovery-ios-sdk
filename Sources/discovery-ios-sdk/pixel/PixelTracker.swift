@@ -784,7 +784,7 @@ public class PixelTracker {
     public func getCookie() -> String? {
         if (brPixel != nil) {
             return FormatterUtils.shared.formatCookieValue(uuid: brPixel?.uuid ?? "",
-            hitcount: brPixel?.visitorType ?? VisitorType.NEW_USER)
+                                                           hitcount: brPixel?.visitorType ?? VisitorType.NEW_USER, cdpSegments:brPixel?.cdpSegments ?? "")
         } else {
             print("Pixel Tracker not initialised")
             return nil
