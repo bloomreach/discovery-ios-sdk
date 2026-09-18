@@ -9,7 +9,7 @@ import Foundation
 class PageViewPixelFormatter {
     
     /**
-     Method to generating query parameter String for Product Page View Pixel
+     Method to generate query parameter String for Product Page View Pixel
      - parameters:
      - pixelObject: internal object which holds data for fields required to generate query parameter String
      - queryMap: reference of Map where the values will be added
@@ -27,7 +27,7 @@ class PageViewPixelFormatter {
     }
     
     /**
-     Method to generating query parameter String for Content Page View Pixel
+     Method to generate query parameter String for Content Page View Pixel
      - parameters:
      - pixelObject: internal object which holds data for fields required to generate query parameter String
      - queryMap: reference of Map where the values will be added
@@ -46,7 +46,7 @@ class PageViewPixelFormatter {
     }
     
     /**
-     Method to generating query parameter String for Content Search Page View Pixel
+     Method to generate query parameter String for Content Search Page View Pixel
      - parameters:
      - pixelObject: internal object which holds data for fields required to generate query parameter String
      - queryMap: reference of Map where the values will be added
@@ -63,7 +63,7 @@ class PageViewPixelFormatter {
     }
     
     /**
-     Method to generating query parameter String for Search Page View Pixel
+     Method to generate query parameter String for Search Page View Pixel
      - parameters:
      - pixelObject: internal object which holds data for fields required to generate query parameter String
      - queryMap: reference of Map where the values will be added
@@ -75,7 +75,7 @@ class PageViewPixelFormatter {
     }
     
     /**
-     Method to generating query parameter String for Category Page View Pixel
+     Method to generate query parameter String for Category Page View Pixel
      - parameters:
      - pixelObject: internal object which holds data for fields required to generate query parameter String
      - queryMap: reference of Map where the values will be added
@@ -88,7 +88,7 @@ class PageViewPixelFormatter {
     }
     
     /**
-     Method to generating query parameter String for Conversion Page View Pixel
+     Method to generate query parameter String for Conversion Page View Pixel
      - parameters:
      - pixelObject: internal object which holds data for fields required to generate query parameter String
      - queryMap: reference of Map where the values will be added

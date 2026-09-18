@@ -58,7 +58,7 @@ public enum Operator {
 
 /**
  * Widget TYPE ENUM to specify which type on widget API needs to be called.
- * This gets added as Path parameter to he request
+ * This gets added as Path parameter to the request
  */
 public enum WidgetApiType: String {
     case ITEM = "item"

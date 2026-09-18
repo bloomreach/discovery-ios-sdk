@@ -40,7 +40,7 @@ public class AutosuggestRequest: RequestMap<AutosuggestRequest> {
      Method to set catalog views that you want to see in your suggestions.
      This method helps to format the catalogs views in required format
      - parameters:
-     - values: Dictonary of catalog views attributes and its values
+     - values: Dictionary of catalog views attributes and its values
      - returns A reference to the current Request object
      */
     public func catalogViews(values: [String: String])-> AutosuggestRequest {

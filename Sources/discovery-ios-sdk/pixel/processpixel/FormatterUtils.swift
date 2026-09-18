@@ -45,7 +45,7 @@ class FormatterUtils {
     /**
      Method to format url value
      - parameters:
-     - baseurl: Base Url for the merchant provided bt Bloomreach
+     - baseurl: Base Url for the merchant provided by Bloomreach
      - pType: Page classification type
      - title: Title of the screen
      - brPSuggQ: Value of User clicked a product suggest. If its not there, leave this nil.
@@ -64,7 +64,7 @@ class FormatterUtils {
     /**
      Method to format catalog value
      The catalog name is encoded by prefixing "cat" + "the index of the catalog starting from 0" + "=" + "the catalog name"
-     :param: catalogs Base Url for the merchant provided bt Bloomreach
+     :param: catalogs Base Url for the merchant provided by Bloomreach
      @return cataLogs - String value in required format
      */
     
@@ -109,7 +109,7 @@ class FormatterUtils {
      Each product in the cart will be separated by !. Each product's details will be separated by '.
      - parameters:
      - basketItems: -array of the PixelBasketItem objects
-     - returns Formatted string for basket vvalue
+     - returns Formatted string for basket value
      */
     func formatBasket(basketItems: [PixelBasketItem]) -> String {
         
