@@ -11,7 +11,7 @@ public class RequestMap<T> {
     private var requestMap = [String: Any?]()
     
     /**
-     Method to set query parameter as key and value. If the key key is already set, the value will get replaced
+     Method to set query parameter as key and value. If the key is already set, the value will get replaced
      - parameters:
      - key: internal object which holds data for fields required to generate query parameter String
      - value: The value that is used for the query parameter value. If the value is <pre>null</pre> the key will be removed
